@@ -1,0 +1,3 @@
+
+// This is a placeholder file to ensure directories are created
+// We will delete this or overwrite it later, but using write_to_file ensures parent dirs exist.

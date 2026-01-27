@@ -1,0 +1,111 @@
+/* EterniEdu Design System */
+:root {
+  /* Color Palette - White/Grey/Black Theme */
+  --color-primary: #ffffff;
+  /* Pure White */
+  --color-primary-light: #f3f4f6;
+  /* Light Grey for cards/sections */
+  --color-accent: #000000;
+  /* Black Accent */
+  --color-gold: #d4af37;
+  /* Gold reserved for premium status/highlights */
+
+  --color-text-main: #111827;
+  /* Dark Grey/Black for text */
+  --color-text-muted: #6b7280;
+  /* Muted Grey */
+  --color-bg-body: #ffffff;
+
+  --font-heading: 'Inter', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+
+  --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-bg-body);
+  color: var(--color-text-main);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: var(--transition-fast);
+}
+
+ul {
+  list-style: none;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  font-family: inherit;
+}
+
+/* Utilities */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.text-gold {
+  color: var(--color-gold);
+}
+
+.text-accent {
+  color: var(--color-accent);
+}
+
+.btn {
+  display: inline-block;
+  padding: 12px 24px;
+  border-radius: 4px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-align: center;
+  transition: var(--transition-normal);
+}
+
+.btn-primary {
+  background-color: transparent;
+  border: 1px solid var(--color-accent);
+  color: var(--color-accent);
+}
+
+.btn-primary:hover {
+  background-color: rgba(100, 255, 218, 0.1);
+}
+
+.btn-solid {
+  background-color: var(--color-accent);
+  color: var(--color-bg-body);
+  border: 1px solid var(--color-accent);
+}
+
+.btn-solid:hover {
+  background-color: transparent;
+  color: var(--color-accent);
+}
+
+.section-title {
+  font-size: 2rem;
+  color: var(--color-text-main);
+  margin-bottom: 2rem;
+  border-bottom: 2px solid var(--color-accent);
+  display: inline-block;
+  padding-bottom: 0.5rem;
+}

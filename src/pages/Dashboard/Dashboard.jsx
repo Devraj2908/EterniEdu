@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Book, Code, GraduationCap, Award, Zap } from 'lucide-react';
+import { Book, Code, Award, Zap } from 'lucide-react';
 
 
 const Dashboard = () => {

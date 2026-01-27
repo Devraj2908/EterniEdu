@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, BookOpen, User } from 'lucide-react';
+import { Menu, X, BookOpen } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Header = () => {
     const [isOpen, setIsOpen] = useState(false);
     const location = useLocation();
 
-    const isLoginPage = location.pathname === '/';
+
 
     const navLinks = [
         { title: 'Dashboard', path: '/dashboard' },

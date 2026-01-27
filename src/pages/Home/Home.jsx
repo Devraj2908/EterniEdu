@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { BookOpen, Users, Award, CheckCircle } from 'lucide-react';
+import { BookOpen, Users, Award } from 'lucide-react';
 
 
 const Home = () => {

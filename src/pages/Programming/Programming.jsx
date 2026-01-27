@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Terminal, Code, Cpu, Globe } from 'lucide-react';
-import SEO from '../../components/Shared/SEO';
+
 
 const Programming = () => {
     const courses = [
@@ -13,7 +13,7 @@ const Programming = () => {
 
     return (
         <div className="container" style={{ padding: '4rem 20px' }}>
-            <SEO title="Programming Courses" description="Learn to code with EterniEdu." />
+
 
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
                 <h1 className="section-title">Programming School</h1>

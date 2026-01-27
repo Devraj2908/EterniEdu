@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import SEO from '../../components/Shared/SEO';
+
 
 const SectionPage = () => {
     const { id } = useParams();
@@ -19,7 +19,7 @@ const SectionPage = () => {
 
     return (
         <div className="container" style={{ padding: '4rem 20px' }}>
-            <SEO title={data.title} description={data.desc} />
+
 
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
                 <h1 className="section-title">{data.title}</h1>

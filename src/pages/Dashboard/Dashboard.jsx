@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Book, Code, GraduationCap, Award, Zap } from 'lucide-react';
-import SEO from '../../components/Shared/SEO';
+
 
 const Dashboard = () => {
     const cards = [
@@ -17,7 +17,7 @@ const Dashboard = () => {
 
     return (
         <div className="container" style={{ padding: '4rem 20px' }}>
-            <SEO title="Dashboard" description="Select your learning path." />
+
 
             <motion.div
                 initial={{ opacity: 0, y: 20 }}

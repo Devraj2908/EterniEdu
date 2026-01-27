@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate, Link } from 'react-router-dom';
-import SEO from '../../components/Shared/SEO';
+
 
 const Login = () => {
     const navigate = useNavigate();
@@ -33,7 +33,7 @@ const Login = () => {
             background: 'conic-gradient(from 90deg at 50% 50%, #f3f4f6 0%, #ffffff 50%, #f3f4f6 100%)',
             padding: '20px'
         }}>
-            <SEO title="Login" description="Login to EterniEdu to access premium education." />
+
 
             <div className="container" style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center', gap: '4rem' }}>
 

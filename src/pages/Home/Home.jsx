@@ -2,12 +2,12 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { BookOpen, Users, Award, CheckCircle } from 'lucide-react';
-import SEO from '../../components/Shared/SEO';
+
 
 const Home = () => {
     return (
         <div style={{ background: 'white', minHeight: '100vh' }}>
-            <SEO title="Home" description="EterniEdu - The Future of Education." />
+
 
             {/* Hero Section */}
             <section style={{

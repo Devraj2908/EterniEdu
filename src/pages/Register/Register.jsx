@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate, Link } from 'react-router-dom';
-import SEO from '../../components/Shared/SEO';
+
 
 const Register = () => {
     const [formData, setFormData] = React.useState({
@@ -35,7 +35,7 @@ const Register = () => {
             background: 'conic-gradient(from 90deg at 50% 50%, #f3f4f6 0%, #ffffff 50%, #f3f4f6 100%)',
             padding: '20px'
         }}>
-            <SEO title="Register" description="Create your EterniEdu account." />
+
 
             <div className="container" style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center', gap: '4rem' }}>
 

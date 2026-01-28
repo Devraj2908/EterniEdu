@@ -2,18 +2,24 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Book, Code, Award, Zap } from 'lucide-react';
+import { useAuth } from '../../context/AuthContext';
 
 
 const Dashboard = () => {
-    const cards = [
-        { title: 'Class 10th', icon: <Book size={40} />, path: '/section/10th', color: '#ff6b6b' },
-        { title: 'Class 11th', icon: <Book size={40} />, path: '/section/11th', color: '#4ecdc4' },
-        { title: 'Class 12th', icon: <Book size={40} />, path: '/section/12th', color: '#45b7d1' },
-        { title: 'NEET Prep', icon: <Award size={40} />, path: '/section/neet', color: '#96ceb4' },
-        { title: 'JEE Prep', icon: <Zap size={40} />, path: '/section/jee', color: '#ffeead' },
-        { title: 'CET Prep', icon: <Zap size={40} />, path: '/section/cet', color: '#ffcc5c' },
-        { title: 'Programming', icon: <Code size={40} />, path: '/programming', color: '#ff9a9e', fullWidth: true },
+    const { userGrade } = useAuth();
+
+    const allCards = [
+        { title: 'Class 10th', icon: <Book size={40} />, path: '/section/10th', color: '#ff6b6b', grade: '10th' },
+        { title: 'Class 11th', icon: <Book size={40} />, path: '/section/11th', color: '#4ecdc4', grade: '11th' },
+        { title: 'Class 12th', icon: <Book size={40} />, path: '/section/12th', color: '#45b7d1', grade: '12th' },
+        { title: 'NEET Prep', icon: <Award size={40} />, path: '/section/neet', color: '#96ceb4', grade: 'neet' },
+        { title: 'JEE Prep', icon: <Zap size={40} />, path: '/section/jee', color: '#ffeead', grade: 'jee' },
+        { title: 'CET Prep', icon: <Zap size={40} />, path: '/section/cet', color: '#ffcc5c', grade: 'cet' },
+        { title: 'Programming', icon: <Code size={40} />, path: '/programming', color: '#ff9a9e', fullWidth: true, grade: 'programming' },
     ];
+
+    // Filter cards: show only the one matching userGrade
+    const cards = allCards.filter(card => card.grade === userGrade);
 
     return (
         <div className="container" style={{ padding: '4rem 20px' }}>

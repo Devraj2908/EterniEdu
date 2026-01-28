@@ -5,9 +5,12 @@ import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
 import Dashboard from './pages/Dashboard/Dashboard';
+import Account from './pages/Account/Account';
 import SectionPage from './pages/Section/SectionPage';
 import Programming from './pages/Programming/Programming';
 import './App.css';
+
+import PrivateRoute from './components/Route/PrivateRoute';
 
 function App() {
   return (
@@ -19,25 +22,41 @@ function App() {
         <Route
           path="/dashboard"
           element={
-            <Layout>
-              <Dashboard />
-            </Layout>
+            <PrivateRoute>
+              <Layout>
+                <Dashboard />
+              </Layout>
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/account"
+          element={
+            <PrivateRoute>
+              <Layout>
+                <Account />
+              </Layout>
+            </PrivateRoute>
           }
         />
         <Route
           path="/section/:id"
           element={
-            <Layout>
-              <SectionPage />
-            </Layout>
+            <PrivateRoute>
+              <Layout>
+                <SectionPage />
+              </Layout>
+            </PrivateRoute>
           }
         />
         <Route
           path="/programming"
           element={
-            <Layout>
-              <Programming />
-            </Layout>
+            <PrivateRoute>
+              <Layout>
+                <Programming />
+              </Layout>
+            </PrivateRoute>
           }
         />
         <Route path="*" element={<Navigate to="/" replace />} />

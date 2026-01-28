@@ -3,24 +3,29 @@ import { motion } from 'framer-motion';
 import { useNavigate, Link } from 'react-router-dom';
 
 
+import { useAuth } from '../../context/AuthContext';
+
 const Login = () => {
     const navigate = useNavigate();
+    const { login } = useAuth();
+    const [error, setError] = React.useState('');
 
-    const handleLogin = (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
+        setError('');
+        const email = e.target[0].value;
+        const password = e.target[1].value;
 
-        // Retrieve the user's grade from registration (simulated backend)
-        const userGrade = localStorage.getItem('userGrade');
-
-        if (userGrade) {
-            if (userGrade === 'programming') {
-                navigate('/programming');
+        try {
+            const result = await login(email, password);
+            if (result.success) {
+                navigate('/dashboard');
             } else {
-                navigate(`/section/${userGrade}`);
+                setError(result.message);
             }
-        } else {
-            // Fallback if no grade found (e.g., direct login)
-            navigate('/dashboard');
+        } catch (error) {
+            console.error("Login Error:", error);
+            setError("Something went wrong. Please try again.");
         }
     };
 
@@ -85,6 +90,19 @@ const Login = () => {
                     }}
                 >
                     <h2 style={{ textAlign: 'center', marginBottom: '2rem', color: 'var(--color-text-main)' }}>Student Login</h2>
+                    {error && (
+                        <div style={{
+                            backgroundColor: '#fee2e2',
+                            color: '#ef4444',
+                            padding: '10px',
+                            borderRadius: '4px',
+                            marginBottom: '1rem',
+                            fontSize: '0.9rem',
+                            textAlign: 'center'
+                        }}>
+                            {error}
+                        </div>
+                    )}
                     <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
                         <div>
                             <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.9rem', color: 'var(--color-text-main)' }}>Email Address</label>

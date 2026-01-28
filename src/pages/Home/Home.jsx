@@ -6,7 +6,7 @@ import { BookOpen, Users, Award } from 'lucide-react';
 
 const Home = () => {
     return (
-        <div style={{ background: 'white', minHeight: '100vh' }}>
+        <div style={{ background: 'var(--color-bg-body)', minHeight: '100vh' }}>
 
 
             {/* Hero Section */}
@@ -49,7 +49,7 @@ const Home = () => {
             </section>
 
             {/* Features Section */}
-            <section style={{ padding: '6rem 20px', background: 'white' }}>
+            <section style={{ padding: '6rem 20px', background: 'transparent' }}>
                 <div className="container">
                     <h2 className="section-title" style={{ textAlign: 'center', display: 'block', borderBottom: 'none' }}>Why Choose EterniEdu?</h2>
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '3rem', marginTop: '4rem' }}>

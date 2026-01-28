@@ -1,71 +1,98 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, BookOpen } from 'lucide-react';
+import { Menu, X, BookOpen, User } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useAuth } from '../../context/AuthContext';
 
 const Header = () => {
     const [isOpen, setIsOpen] = useState(false);
     const location = useLocation();
+    const { currentUser, userGrade } = useAuth();
 
-
-
-    const navLinks = [
+    const allLinks = [
         { title: 'Dashboard', path: '/dashboard' },
-        { title: '10th', path: '/section/10th' },
-        { title: '11th', path: '/section/11th' },
-        { title: '12th', path: '/section/12th' },
-        { title: 'NEET', path: '/section/neet' },
-        { title: 'JEE', path: '/section/jee' },
-        { title: 'CET', path: '/section/cet' },
-        { title: 'Programming', path: '/programming' },
+        { title: '10th', path: '/section/10th', grade: '10th' },
+        { title: '11th', path: '/section/11th', grade: '11th' },
+        { title: '12th', path: '/section/12th', grade: '12th' },
+        { title: 'NEET', path: '/section/neet', grade: 'neet' },
+        { title: 'JEE', path: '/section/jee', grade: 'jee' },
+        { title: 'CET', path: '/section/cet', grade: 'cet' },
+        { title: 'Programming', path: '/programming', grade: 'programming' },
     ];
 
-
+    // Filter links: Always show Dashboard, otherwise show only if it matches userGrade
+    const navLinks = allLinks.filter(link =>
+        link.title === 'Dashboard' || (userGrade && link.grade === userGrade)
+    );
 
     return (
         <header style={{
-            background: 'rgba(255, 255, 255, 0.95)',
+            background: 'rgba(17, 24, 39, 0.95)',
             backdropFilter: 'blur(10px)',
             position: 'sticky',
             top: 0,
             zIndex: 100,
-            borderBottom: '1px solid #e5e7eb',
-            boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)'
+            borderBottom: '1px solid #374151',
+            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
         }}>
             <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: '80px' }}>
-                <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '1.5rem', fontWeight: 'bold', color: 'var(--color-accent)' }}>
+                <Link to={currentUser ? "/dashboard" : "/"} style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '1.5rem', fontWeight: 'bold', color: 'var(--color-accent)' }}>
                     <BookOpen size={28} />
                     <span>EterniEdu</span>
                 </Link>
 
                 {/* Desktop Nav */}
                 <nav className="desktop-nav" style={{ display: 'none' }}>
-                    <ul style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
-                        {/* Show Login/Register on Home Page or when not logged in */}
-                        {(location.pathname === '/' || location.pathname === '/login' || location.pathname === '/register') ? (
+                    <ul style={{ display: 'flex', gap: '25px', alignItems: 'center' }}>
+                        {!currentUser ? (
                             <>
                                 <li>
-                                    <Link to="/login" className="btn btn-primary" style={{ padding: '8px 20px' }}>Login</Link>
+                                    <Link to="/login" className="btn btn-primary" style={{ padding: '8px 20px', color: 'white' }}>Login</Link>
                                 </li>
                                 <li>
                                     <Link to="/register" className="btn btn-solid" style={{ padding: '8px 20px' }}>Get Started</Link>
                                 </li>
                             </>
                         ) : (
-                            navLinks.map((link) => (
-                                <li key={link.path}>
+                            <>
+                                {navLinks.map((link) => (
+                                    <li key={link.path}>
+                                        <Link
+                                            to={link.path}
+                                            style={{
+                                                color: location.pathname === link.path ? 'var(--color-accent)' : '#9ca3af',
+                                                fontSize: '0.95rem',
+                                                fontWeight: '600'
+                                            }}
+                                            onMouseOver={(e) => e.currentTarget.style.color = 'white'}
+                                            onMouseOut={(e) => e.currentTarget.style.color = location.pathname === link.path ? 'var(--color-accent)' : '#9ca3af'}
+                                        >
+                                            {link.title}
+                                        </Link>
+                                    </li>
+                                ))}
+                                <li>
                                     <Link
-                                        to={link.path}
+                                        to="/account"
                                         style={{
-                                            color: location.pathname === link.path ? 'var(--color-accent)' : 'var(--color-text-main)',
-                                            fontSize: '0.9rem',
-                                            fontWeight: '500'
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            gap: '8px',
+                                            background: '#1f2937',
+                                            padding: '8px 16px',
+                                            borderRadius: '50px',
+                                            color: 'var(--color-accent)',
+                                            fontWeight: 'bold',
+                                            border: '1px solid #374151'
                                         }}
+                                        onMouseOver={(e) => e.currentTarget.style.background = '#374151'}
+                                        onMouseOut={(e) => e.currentTarget.style.background = '#1f2937'}
                                     >
-                                        {link.title}
+                                        <User size={18} />
+                                        Account
                                     </Link>
                                 </li>
-                            ))
+                            </>
                         )}
                     </ul>
                 </nav>
@@ -80,37 +107,51 @@ const Header = () => {
             <AnimatePresence>
                 {isOpen && (
                     <motion.div
-                        initial={{ opacity: 0, x: '100%' }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: '100%' }}
-                        transition={{ type: 'tween' }}
+                        initial={{ opacity: 0, y: -20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -20 }}
                         style={{
-                            position: 'fixed',
+                            position: 'absolute',
                             top: '80px',
                             left: 0,
                             right: 0,
-                            bottom: 0,
-                            background: 'var(--color-primary)',
+                            background: '#111827',
                             padding: '2rem',
-                            zIndex: 99
+                            zIndex: 99,
+                            boxShadow: '0 10px 15px -3px rgba(0,0,0,0.3)',
+                            borderBottom: '1px solid #374151'
                         }}
                     >
-                        <ul style={{ display: 'flex', flexDirection: 'column', gap: '2rem', alignItems: 'center' }}>
-                            {navLinks.map((link) => (
-                                <li key={link.path}>
-                                    <Link
-                                        to={link.path}
-                                        onClick={() => setIsOpen(false)}
-                                        style={{
-                                            color: location.pathname === link.path ? 'var(--color-accent)' : 'var(--color-text-main)',
-                                            fontSize: '1.2rem',
-                                            fontWeight: 'bold'
-                                        }}
-                                    >
-                                        {link.title}
-                                    </Link>
-                                </li>
-                            ))}
+                        <ul style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', alignItems: 'center' }}>
+                            {!currentUser ? (
+                                <>
+                                    <li><Link to="/login" onClick={() => setIsOpen(false)} style={{ color: 'white' }}>Login</Link></li>
+                                    <li><Link to="/register" onClick={() => setIsOpen(false)} style={{ color: 'white' }}>Register</Link></li>
+                                </>
+                            ) : (
+                                <>
+                                    {navLinks.map((link) => (
+                                        <li key={link.path}>
+                                            <Link
+                                                to={link.path}
+                                                onClick={() => setIsOpen(false)}
+                                                style={{ fontSize: '1.1rem', fontWeight: 'bold', color: location.pathname === link.path ? 'var(--color-accent)' : '#9ca3af' }}
+                                            >
+                                                {link.title}
+                                            </Link>
+                                        </li>
+                                    ))}
+                                    <li>
+                                        <Link
+                                            to="/account"
+                                            onClick={() => setIsOpen(false)}
+                                            style={{ color: 'var(--color-accent)', fontWeight: 'bold' }}
+                                        >
+                                            My Account
+                                        </Link>
+                                    </li>
+                                </>
+                            )}
                         </ul>
                     </motion.div>
                 )}

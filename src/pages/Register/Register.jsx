@@ -3,7 +3,10 @@ import { motion } from 'framer-motion';
 import { useNavigate, Link } from 'react-router-dom';
 
 
+import { useAuth } from '../../context/AuthContext';
+
 const Register = () => {
+    const { register } = useAuth();
     const [formData, setFormData] = React.useState({
         name: '',
         email: '',
@@ -11,6 +14,7 @@ const Register = () => {
         confirmPassword: '',
         grade: '10th' // Default grade
     });
+    const [error, setError] = React.useState('');
 
     const navigate = useNavigate();
 
@@ -18,12 +22,33 @@ const Register = () => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleRegister = (e) => {
+    const handleRegister = async (e) => {
         e.preventDefault();
-        // Simulate registration and save user data/grade
-        localStorage.setItem('userGrade', formData.grade);
-        alert('Registration successful! Please login.');
-        navigate('/login');
+        setError('');
+
+        if (formData.password !== formData.confirmPassword) {
+            setError("Passwords do not match!");
+            return;
+        }
+
+        try {
+            const result = await register({
+                name: formData.name,
+                email: formData.email,
+                password: formData.password,
+                grade: formData.grade
+            });
+
+            if (result.success) {
+                alert('Registration successful! Please login to continue.');
+                navigate('/login');
+            } else {
+                setError(result.message);
+            }
+        } catch (error) {
+            console.error("Registration Error:", error);
+            setError("Something went wrong. Please try again.");
+        }
     };
 
     return (
@@ -72,6 +97,19 @@ const Register = () => {
                     }}
                 >
                     <h2 style={{ textAlign: 'center', marginBottom: '2rem', color: 'var(--color-text-main)' }}>Create Account</h2>
+                    {error && (
+                        <div style={{
+                            backgroundColor: '#fee2e2',
+                            color: '#ef4444',
+                            padding: '10px',
+                            borderRadius: '4px',
+                            marginBottom: '1rem',
+                            fontSize: '0.9rem',
+                            textAlign: 'center'
+                        }}>
+                            {error}
+                        </div>
+                    )}
                     <form onSubmit={handleRegister} style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
                         <div>
                             <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.9rem', color: 'var(--color-text-main)' }}>Full Name</label>

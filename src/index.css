@@ -14,7 +14,7 @@
   /* Dark Grey/Black for text */
   --color-text-muted: #6b7280;
   /* Muted Grey */
-  --color-bg-body: #ffffff;
+  --color-bg-body: #f7f9fc;
 
   --font-heading: 'Inter', system-ui, sans-serif;
   --font-body: 'Inter', system-ui, sans-serif;

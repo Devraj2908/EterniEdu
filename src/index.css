@@ -1,111 +1,242 @@
-/* EterniEdu Design System */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
 :root {
-  /* Color Palette - White/Grey/Black Theme */
-  --color-primary: #ffffff;
-  /* Pure White */
-  --color-primary-light: #f3f4f6;
-  /* Light Grey for cards/sections */
-  --color-accent: #000000;
-  /* Black Accent */
-  --color-gold: #d4af37;
-  /* Gold reserved for premium status/highlights */
+  /* Premium Dark Theme */
+  --bg-primary: #050505;
+  --bg-secondary: #0f0f0f;
+  --bg-tertiary: #1a1a1a;
 
-  --color-text-main: #111827;
-  /* Dark Grey/Black for text */
-  --color-text-muted: #6b7280;
-  /* Muted Grey */
-  --color-bg-body: #f7f9fc;
+  --accent-gold: #d4af37;
+  --accent-gold-glow: rgba(212, 175, 55, 0.3);
+  --accent-gold-dark: #b8860b;
 
-  --font-heading: 'Inter', system-ui, sans-serif;
-  --font-body: 'Inter', system-ui, sans-serif;
+  --text-primary: #ffffff;
+  --text-secondary: #a1a1aa;
+  --text-muted: #71717a;
 
-  --transition-fast: 0.2s ease;
-  --transition-normal: 0.3s ease;
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
 
-  --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --font-main: 'Plus Jakarta Sans', sans-serif;
+  --font-heading: 'Outfit', sans-serif;
+
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-full: 9999px;
+
+  /* Container sizes */
+  --container-max: 1280px;
 }
 
 * {
-  box-sizing: border-box;
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-  font-family: var(--font-body);
-  background-color: var(--color-bg-body);
-  color: var(--color-text-main);
+  font-family: var(--font-main);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
   line-height: 1.6;
   overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  line-height: 1.2;
 }
 
 a {
   text-decoration: none;
   color: inherit;
-  transition: var(--transition-fast);
-}
-
-ul {
-  list-style: none;
+  transition: var(--transition);
 }
 
 button {
+  font-family: var(--font-main);
   cursor: pointer;
   border: none;
-  font-family: inherit;
+  outline: none;
+  background: none;
+}
+
+/* Base Styles */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
 }
 
 /* Utilities */
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
+.text-gradient-gold {
+  background: linear-gradient(135deg, #fceabb 0%, #f8b500 50%, #fceabb 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-.text-gold {
-  color: var(--color-gold);
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
 }
 
-.text-accent {
-  color: var(--color-accent);
+.glass-morphism {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-md);
 }
 
+/* Buttons */
 .btn {
-  display: inline-block;
-  padding: 12px 24px;
-  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
   font-weight: 600;
-  letter-spacing: 0.5px;
-  text-align: center;
-  transition: var(--transition-normal);
+  border-radius: var(--radius-md);
+  transition: var(--transition);
+  gap: 0.5rem;
+  font-size: 0.95rem;
 }
 
 .btn-primary {
-  background-color: transparent;
-  border: 1px solid var(--color-accent);
-  color: var(--color-accent);
+  background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-gold-dark) 100%);
+  color: #000;
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
 }
 
 .btn-primary:hover {
-  background-color: rgba(100, 255, 218, 0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
 }
 
-.btn-solid {
-  background-color: var(--color-accent);
-  color: var(--color-bg-body);
-  border: 1px solid var(--color-accent);
+.btn-outline {
+  background: transparent;
+  border: 1px solid var(--glass-border);
+  color: var(--text-primary);
 }
 
-.btn-solid:hover {
-  background-color: transparent;
-  color: var(--color-accent);
+.btn-outline:hover {
+  background: var(--glass-bg);
+  border-color: var(--accent-gold);
+  color: var(--accent-gold);
 }
 
-.section-title {
-  font-size: 2rem;
-  color: var(--color-text-main);
-  margin-bottom: 2rem;
-  border-bottom: 2px solid var(--color-accent);
-  display: inline-block;
-  padding-bottom: 0.5rem;
+.btn-ghost {
+  background: transparent;
+  color: var(--text-secondary);
+}
+
+.btn-ghost:hover {
+  background: var(--glass-bg);
+  color: var(--text-primary);
+}
+
+/* Responsive Grid System */
+.grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.grid-cols-1 {
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+.grid-cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.grid-cols-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+@media (max-width: 1024px) {
+  .lg-grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .md-grid-cols-1 {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+
+  h1 {
+    font-size: 2.5rem !important;
+  }
+
+  h2 {
+    font-size: 2rem !important;
+  }
+
+  .mobile-hide {
+    display: none !important;
+  }
+}
+
+/* Animations */
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-gold);
+}
+
+/* Layout Utilities */
+.section {
+  padding: 5rem 0;
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 3rem 0;
+  }
 }

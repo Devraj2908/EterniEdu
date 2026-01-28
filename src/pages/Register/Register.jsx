@@ -1,8 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate, Link } from 'react-router-dom';
-
-
+import { User, Mail, Lock, GraduationCap, ArrowLeft, ArrowRight, Sparkles } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 
 const Register = () => {
@@ -12,10 +11,9 @@ const Register = () => {
         email: '',
         password: '',
         confirmPassword: '',
-        grade: '10th' // Default grade
+        grade: '10th'
     });
     const [error, setError] = React.useState('');
-
     const navigate = useNavigate();
 
     const handleChange = (e) => {
@@ -40,14 +38,13 @@ const Register = () => {
             });
 
             if (result.success) {
-                // Navigate to login with a success message state
-                navigate('/login', { state: { message: 'Registration successful! Please login to continue.' } });
+                navigate('/login', { state: { message: 'Account created successfully! Welcome to EterniEdu.' } });
             } else {
                 setError(result.message);
             }
         } catch (error) {
             console.error("Registration Error:", error);
-            setError("Something went wrong. Please try again.");
+            setError("Registration failed. Please check your connection.");
         }
     };
 
@@ -57,183 +54,211 @@ const Register = () => {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            background: 'conic-gradient(from 90deg at 50% 50%, #f3f4f6 0%, #ffffff 50%, #f3f4f6 100%)',
-            padding: '20px'
+            background: 'var(--bg-primary)',
+            padding: '4rem 2rem',
+            position: 'relative',
+            overflow: 'hidden'
         }}>
+            {/* Background Decorations */}
+            <div style={{ position: 'absolute', top: '5%', right: '5%', width: '400px', height: '400px', background: 'var(--accent-gold-glow)', filter: 'blur(120px)', zIndex: 0 }} />
+            <div style={{ position: 'absolute', bottom: '5%', left: '5%', width: '300px', height: '300px', background: 'var(--accent-gold-glow)', filter: 'blur(100px)', zIndex: 0, opacity: 0.3 }} />
 
+            <div className="container" style={{ position: 'relative', zIndex: 1, display: 'flex', gap: '5rem', alignItems: 'center', justifyContent: 'center', flexWrap: 'wrap' }}>
 
-            <div className="container" style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center', gap: '4rem' }}>
-
-                {/* Left Side - Hero Text */}
+                {/* Visual Benefits - Hidden on small mobile */}
                 <motion.div
                     initial={{ opacity: 0, x: -50 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.8 }}
-                    style={{ flex: '1 1 400px', maxWidth: '600px' }}
+                    className="mobile-hide"
+                    style={{ flex: '1', maxWidth: '500px' }}
                 >
-                    <h1 style={{ fontSize: '3.5rem', fontWeight: '800', marginBottom: '1.5rem', lineHeight: '1.1', color: 'var(--color-text-main)' }}>
-                        Join <br />
-                        <span className="text-accent">EterniEdu</span>
+                    <h1 style={{ fontSize: '3.5rem', fontWeight: '800', marginBottom: '2rem' }}>
+                        Join the <span className="text-gradient-gold">Elite</span> <br />
+                        Learning Circle
                     </h1>
-                    <p style={{ fontSize: '1.2rem', color: 'var(--color-text-muted)', marginBottom: '2rem' }}>
-                        Unlock your potential with our premium courses. Select your grade and start learning.
-                    </p>
+                    <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                        {[
+                            "Ad-free premium learning experience",
+                            "Access to all subject resources",
+                            "Real-time progress tracking",
+                            "Certified course completion"
+                        ].map((text, i) => (
+                            <li key={i} style={{ display: 'flex', alignItems: 'center', gap: '12px', color: 'var(--text-secondary)' }}>
+                                <div style={{ color: 'var(--accent-gold)' }}><Sparkles size={20} /></div>
+                                {text}
+                            </li>
+                        ))}
+                    </ul>
                 </motion.div>
 
-                {/* Right Side - Register Form */}
                 <motion.div
-                    initial={{ opacity: 0, y: 50 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.2 }}
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="glass"
                     style={{
-                        flex: '1 1 350px',
-                        maxWidth: '450px',
-                        background: 'white',
-                        backdropFilter: 'blur(10px)',
-                        padding: '2.5rem',
-                        borderRadius: '12px',
-                        boxShadow: '0 10px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1)',
-                        border: '1px solid #e5e7eb'
+                        width: '100%',
+                        maxWidth: '520px',
+                        padding: '3rem 2.5rem',
+                        borderRadius: 'var(--radius-lg)'
                     }}
                 >
-                    <h2 style={{ textAlign: 'center', marginBottom: '2rem', color: 'var(--color-text-main)' }}>Create Account</h2>
+                    <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
+                        <h2 style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>Create Account</h2>
+                        <p style={{ color: 'var(--text-secondary)' }}>Start your journey to academic excellence</p>
+                    </div>
+
                     {error && (
-                        <div style={{
-                            backgroundColor: '#fee2e2',
-                            color: '#ef4444',
-                            padding: '10px',
-                            borderRadius: '4px',
-                            marginBottom: '1rem',
-                            fontSize: '0.9rem',
-                            textAlign: 'center'
-                        }}>
+                        <div style={{ background: 'rgba(239, 68, 68, 0.1)', color: '#ef4444', padding: '1rem', borderRadius: 'var(--radius-md)', marginBottom: '1.5rem', border: '1px solid rgba(239, 68, 68, 0.2)', textAlign: 'center', fontSize: '0.9rem' }}>
                             {error}
                         </div>
                     )}
-                    <form onSubmit={handleRegister} style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
+
+                    <form onSubmit={handleRegister} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
                         <div>
-                            <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.9rem', color: 'var(--color-text-main)' }}>Full Name</label>
-                            <input
-                                type="text"
-                                name="name"
-                                value={formData.name}
-                                onChange={handleChange}
-                                placeholder="John Doe"
-                                required
-                                style={{
-                                    width: '100%',
-                                    padding: '12px',
-                                    background: '#f9fafb',
-                                    border: '1px solid #d1d5db',
-                                    borderRadius: '4px',
-                                    color: 'var(--color-text-main)',
-                                    outline: 'none'
-                                }}
-                            />
+                            <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.9rem', color: 'var(--text-secondary)' }}>Full Name</label>
+                            <div style={{ position: 'relative' }}>
+                                <User size={18} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
+                                <input
+                                    name="name"
+                                    type="text"
+                                    placeholder="Enter your full name"
+                                    value={formData.name}
+                                    onChange={handleChange}
+                                    required
+                                    style={{
+                                        width: '100%',
+                                        padding: '12px 12px 12px 40px',
+                                        background: 'var(--bg-tertiary)',
+                                        border: '1px solid var(--glass-border)',
+                                        borderRadius: 'var(--radius-md)',
+                                        color: 'var(--text-primary)',
+                                        outline: 'none'
+                                    }}
+                                />
+                            </div>
                         </div>
-                        <div>
-                            <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.9rem', color: 'var(--color-text-main)' }}>Email Address</label>
-                            <input
-                                type="email"
-                                name="email"
-                                value={formData.email}
-                                onChange={handleChange}
-                                placeholder="student@eterniedu.com"
-                                required
-                                style={{
-                                    width: '100%',
-                                    padding: '12px',
-                                    background: '#f9fafb',
-                                    border: '1px solid #d1d5db',
-                                    borderRadius: '4px',
-                                    color: 'var(--color-text-main)',
-                                    outline: 'none'
-                                }}
-                            />
+
+                        <div className="grid grid-cols-1 md-grid-cols-2" style={{ gap: '1rem' }}>
+                            <div>
+                                <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.9rem', color: 'var(--text-secondary)' }}>Email Address</label>
+                                <div style={{ position: 'relative' }}>
+                                    <Mail size={18} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
+                                    <input
+                                        name="email"
+                                        type="email"
+                                        placeholder="email@example.com"
+                                        value={formData.email}
+                                        onChange={handleChange}
+                                        required
+                                        style={{
+                                            width: '100%',
+                                            padding: '12px 12px 12px 40px',
+                                            background: 'var(--bg-tertiary)',
+                                            border: '1px solid var(--glass-border)',
+                                            borderRadius: 'var(--radius-md)',
+                                            color: 'var(--text-primary)',
+                                            outline: 'none'
+                                        }}
+                                    />
+                                </div>
+                            </div>
+                            <div>
+                                <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.9rem', color: 'var(--text-secondary)' }}>Grade / Course</label>
+                                <div style={{ position: 'relative' }}>
+                                    <GraduationCap size={18} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)', zIndex: 1 }} />
+                                    <select
+                                        name="grade"
+                                        value={formData.grade}
+                                        onChange={handleChange}
+                                        style={{
+                                            width: '100%',
+                                            padding: '12px 12px 12px 40px',
+                                            background: 'var(--bg-tertiary)',
+                                            border: '1px solid var(--glass-border)',
+                                            borderRadius: 'var(--radius-md)',
+                                            color: 'var(--text-primary)',
+                                            outline: 'none',
+                                            appearance: 'none'
+                                        }}
+                                    >
+                                        <option value="10th">Class 10th</option>
+                                        <option value="11th">Class 11th</option>
+                                        <option value="12th">Class 12th</option>
+                                        <option value="neet">NEET Exam</option>
+                                        <option value="jee">JEE Exam</option>
+                                        <option value="cet">CET Exam</option>
+                                        <option value="programming">Programming</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
-                        <div>
-                            <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.9rem', color: 'var(--color-text-main)' }}>Select Grade/Course</label>
-                            <select
-                                name="grade"
-                                value={formData.grade}
-                                onChange={handleChange}
-                                style={{
-                                    width: '100%',
-                                    padding: '12px',
-                                    background: '#f9fafb',
-                                    border: '1px solid #d1d5db',
-                                    borderRadius: '4px',
-                                    color: 'var(--color-text-main)',
-                                    outline: 'none'
-                                }}
-                            >
-                                <option value="10th">Class 10th</option>
-                                <option value="11th">Class 11th</option>
-                                <option value="12th">Class 12th</option>
-                                <option value="neet">NEET Preparation</option>
-                                <option value="jee">JEE Preparation</option>
-                                <option value="cet">CET Preparation</option>
-                                <option value="programming">Programming School</option>
-                            </select>
+
+                        <div className="grid grid-cols-1 md-grid-cols-2" style={{ gap: '1rem' }}>
+                            <div>
+                                <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.9rem', color: 'var(--text-secondary)' }}>Password</label>
+                                <div style={{ position: 'relative' }}>
+                                    <Lock size={18} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
+                                    <input
+                                        name="password"
+                                        type="password"
+                                        placeholder="••••••••"
+                                        value={formData.password}
+                                        onChange={handleChange}
+                                        required
+                                        style={{
+                                            width: '100%',
+                                            padding: '12px 12px 12px 40px',
+                                            background: 'var(--bg-tertiary)',
+                                            border: '1px solid var(--glass-border)',
+                                            borderRadius: 'var(--radius-md)',
+                                            color: 'var(--text-primary)',
+                                            outline: 'none'
+                                        }}
+                                    />
+                                </div>
+                            </div>
+                            <div>
+                                <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.9rem', color: 'var(--text-secondary)' }}>Confirm</label>
+                                <div style={{ position: 'relative' }}>
+                                    <Lock size={18} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
+                                    <input
+                                        name="confirmPassword"
+                                        type="password"
+                                        placeholder="••••••••"
+                                        value={formData.confirmPassword}
+                                        onChange={handleChange}
+                                        required
+                                        style={{
+                                            width: '100%',
+                                            padding: '12px 12px 12px 40px',
+                                            background: 'var(--bg-tertiary)',
+                                            border: '1px solid var(--glass-border)',
+                                            borderRadius: 'var(--radius-md)',
+                                            color: 'var(--text-primary)',
+                                            outline: 'none'
+                                        }}
+                                    />
+                                </div>
+                            </div>
                         </div>
-                        <div>
-                            <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.9rem', color: 'var(--color-text-main)' }}>Password</label>
-                            <input
-                                type="password"
-                                name="password"
-                                value={formData.password}
-                                onChange={handleChange}
-                                placeholder="Create a strong password"
-                                required
-                                style={{
-                                    width: '100%',
-                                    padding: '12px',
-                                    background: '#f9fafb',
-                                    border: '1px solid #d1d5db',
-                                    borderRadius: '4px',
-                                    color: 'var(--color-text-main)',
-                                    outline: 'none'
-                                }}
-                            />
-                        </div>
-                        <div>
-                            <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.9rem', color: 'var(--color-text-main)' }}>Confirm Password</label>
-                            <input
-                                type="password"
-                                name="confirmPassword"
-                                value={formData.confirmPassword}
-                                onChange={handleChange}
-                                placeholder="Confirm your password"
-                                required
-                                style={{
-                                    width: '100%',
-                                    padding: '12px',
-                                    background: '#f9fafb',
-                                    border: '1px solid #d1d5db',
-                                    borderRadius: '4px',
-                                    color: 'var(--color-text-main)',
-                                    outline: 'none'
-                                }}
-                            />
-                        </div>
+
                         <button
                             type="submit"
-                            className="btn btn-solid"
-                            style={{
-                                width: '100%',
-                                padding: '14px',
-                                marginTop: '1rem',
-                                opacity: loading ? 0.7 : 1,
-                                cursor: loading ? 'not-allowed' : 'pointer'
-                            }}
+                            className="btn btn-primary"
+                            style={{ width: '100%', padding: '1rem', marginTop: '1.5rem' }}
                             disabled={loading}
                         >
-                            {loading ? 'Creating Account...' : 'Sign Up'}
+                            {loading ? 'Creating Account...' : (
+                                <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                    Register Now <ArrowRight size={20} />
+                                </span>
+                            )}
                         </button>
-                        <p style={{ textAlign: 'center', fontSize: '0.9rem', color: 'var(--color-text-muted)' }}>
-                            Already have an account? <Link to="/login" className="text-accent" style={{ cursor: 'pointer' }}>Login</Link>
-                        </p>
                     </form>
+
+                    <p style={{ textAlign: 'center', marginTop: '2rem', fontSize: '0.95rem', color: 'var(--text-secondary)' }}>
+                        Already have an account? <Link to="/login" style={{ color: 'var(--accent-gold)', fontWeight: '600' }}>Sign In</Link>
+                    </p>
                 </motion.div>
             </div>
         </div>

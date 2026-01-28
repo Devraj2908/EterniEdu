@@ -1,14 +1,24 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 
 
 import { useAuth } from '../../context/AuthContext';
 
 const Login = () => {
     const navigate = useNavigate();
-    const { login } = useAuth();
+    const location = useLocation();
+    const { login, fetching } = useAuth();
     const [error, setError] = React.useState('');
+    const [successMsg, setSuccessMsg] = React.useState(location.state?.message || '');
+
+    React.useEffect(() => {
+        if (location.state?.message) {
+            setSuccessMsg(location.state.message);
+            // Clear location state to prevent message showing again on refresh
+            window.history.replaceState({}, document.title);
+        }
+    }, [location]);
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -90,6 +100,19 @@ const Login = () => {
                     }}
                 >
                     <h2 style={{ textAlign: 'center', marginBottom: '2rem', color: 'var(--color-text-main)' }}>Student Login</h2>
+                    {successMsg && (
+                        <div style={{
+                            backgroundColor: '#dcfce7',
+                            color: '#16a34a',
+                            padding: '10px',
+                            borderRadius: '4px',
+                            marginBottom: '1rem',
+                            fontSize: '0.9rem',
+                            textAlign: 'center'
+                        }}>
+                            {successMsg}
+                        </div>
+                    )}
                     {error && (
                         <div style={{
                             backgroundColor: '#fee2e2',
@@ -138,8 +161,18 @@ const Login = () => {
                                 }}
                             />
                         </div>
-                        <button type="submit" className="btn btn-solid" style={{ width: '100%', padding: '14px' }}>
-                            Login to Dashboard
+                        <button
+                            type="submit"
+                            className="btn btn-solid"
+                            style={{
+                                width: '100%',
+                                padding: '14px',
+                                opacity: fetching ? 0.7 : 1,
+                                cursor: fetching ? 'not-allowed' : 'pointer'
+                            }}
+                            disabled={fetching}
+                        >
+                            {fetching ? 'Logging in...' : 'Login to Dashboard'}
                         </button>
                         <p style={{ textAlign: 'center', fontSize: '0.9rem', color: 'var(--color-text-muted)' }}>
                             Don't have an account? <Link to="/register" className="text-accent" style={{ cursor: 'pointer' }}>Register Now</Link>

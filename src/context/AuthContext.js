@@ -8,11 +8,12 @@ export const AuthProvider = ({ children }) => {
     const [currentUser, setCurrentUser] = useState(null);
     const [userGrade, setUserGrade] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [fetching, setFetching] = useState(false);
 
     useEffect(() => {
         const checkLoggedIn = async () => {
             const token = localStorage.getItem('token');
-            if (token) {
+            if (token && !currentUser) {
                 try {
                     const response = await fetch('http://localhost:5000/api/me', {
                         headers: { 'x-auth-token': token }
@@ -32,37 +33,50 @@ export const AuthProvider = ({ children }) => {
             setLoading(false);
         };
         checkLoggedIn();
-    }, []);
+    }, [currentUser]);
 
     const login = async (email, password) => {
-        const response = await fetch('http://localhost:5000/api/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password })
-        });
-        const data = await response.json();
-        if (response.ok) {
-            localStorage.setItem('token', data.token);
-            setCurrentUser(data.user);
-            setUserGrade(data.user.grade);
-            return { success: true };
-        } else {
-            return { success: false, message: data.message };
+        setFetching(true);
+        try {
+            const response = await fetch('http://localhost:5000/api/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password })
+            });
+            const data = await response.json();
+            if (response.ok) {
+                localStorage.setItem('token', data.token);
+                setCurrentUser(data.user);
+                setUserGrade(data.user.grade);
+                return { success: true };
+            } else {
+                return { success: false, message: data.message };
+            }
+        } catch (error) {
+            return { success: false, message: "Network error. Is the server running?" };
+        } finally {
+            setFetching(false);
         }
     };
 
     const register = async (userData) => {
-        const response = await fetch('http://localhost:5000/api/register', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(userData)
-        });
-        const data = await response.json();
-        if (response.ok) {
-            // Don't set token or user state here to force login after registration
-            return { success: true };
-        } else {
-            return { success: false, message: data.message };
+        setFetching(true);
+        try {
+            const response = await fetch('http://localhost:5000/api/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(userData)
+            });
+            const data = await response.json();
+            if (response.ok) {
+                return { success: true };
+            } else {
+                return { success: false, message: data.message };
+            }
+        } catch (error) {
+            return { success: false, message: "Network error. Is the server running?" };
+        } finally {
+            setFetching(false);
         }
     };
 
@@ -76,6 +90,7 @@ export const AuthProvider = ({ children }) => {
         currentUser,
         userGrade,
         loading,
+        fetching,
         login,
         register,
         logout

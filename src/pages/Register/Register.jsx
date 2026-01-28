@@ -6,7 +6,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 
 const Register = () => {
-    const { register } = useAuth();
+    const { register, loading } = useAuth();
     const [formData, setFormData] = React.useState({
         name: '',
         email: '',
@@ -40,8 +40,8 @@ const Register = () => {
             });
 
             if (result.success) {
-                alert('Registration successful! Please login to continue.');
-                navigate('/login');
+                // Navigate to login with a success message state
+                navigate('/login', { state: { message: 'Registration successful! Please login to continue.' } });
             } else {
                 setError(result.message);
             }
@@ -216,8 +216,19 @@ const Register = () => {
                                 }}
                             />
                         </div>
-                        <button type="submit" className="btn btn-solid" style={{ width: '100%', padding: '14px', marginTop: '1rem' }}>
-                            Sign Up
+                        <button
+                            type="submit"
+                            className="btn btn-solid"
+                            style={{
+                                width: '100%',
+                                padding: '14px',
+                                marginTop: '1rem',
+                                opacity: loading ? 0.7 : 1,
+                                cursor: loading ? 'not-allowed' : 'pointer'
+                            }}
+                            disabled={loading}
+                        >
+                            {loading ? 'Creating Account...' : 'Sign Up'}
                         </button>
                         <p style={{ textAlign: 'center', fontSize: '0.9rem', color: 'var(--color-text-muted)' }}>
                             Already have an account? <Link to="/login" className="text-accent" style={{ cursor: 'pointer' }}>Login</Link>

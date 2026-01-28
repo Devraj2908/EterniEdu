@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 const User = require('./models/User');
 
 dotenv.config();
@@ -12,41 +13,76 @@ app.use(cors());
 app.use(express.json());
 
 // MongoDB Connection
+console.time('DB Connection');
 mongoose.connect(process.env.MONGODB_URI)
-    .then(() => console.log('Connected to MongoDB'))
-    .catch(err => console.error('Could not connect to MongoDB', err));
+    .then(() => {
+        console.timeEnd('DB Connection');
+        console.log('Connected to MongoDB');
+    })
+    .catch(err => {
+        console.timeEnd('DB Connection');
+        console.error('Could not connect to MongoDB', err);
+    });
+
+// Middleware for logging request time
+app.use((req, res, next) => {
+    const start = Date.now();
+    res.on('finish', () => {
+        const duration = Date.now() - start;
+        console.log(`${req.method} ${req.originalUrl} - ${duration}ms`);
+    });
+    next();
+});
 
 // register Route
 app.post('/api/register', async (req, res) => {
     try {
         const { name, email, password, grade } = req.body;
 
-        let user = await User.findOne({ email });
-        if (user) return res.status(400).json({ message: 'User already exists' });
+        const userExists = await User.findOne({ email }).select('_id').lean();
+        if (userExists) return res.status(400).json({ message: 'User already exists' });
 
-        user = new User({ name, email, password, grade });
+        const user = new User({ name, email, password, grade });
         await user.save();
 
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1d' });
         res.json({ token, user: { id: user._id, name, email, grade } });
     } catch (err) {
+        console.error('Register error:', err);
         res.status(500).json({ message: 'Server error' });
     }
 });
 
 // login Route
 app.post('/api/login', async (req, res) => {
+    const { email, password } = req.body;
     try {
-        const { email, password } = req.body;
-        const user = await User.findOne({ email });
-        if (!user) return res.status(400).json({ message: 'Invalid credentials' });
+        // Use lean() for faster query and less memory overhead
+        const user = await User.findOne({ email }).lean();
 
-        const isMatch = await user.comparePassword(password);
-        if (!isMatch) return res.status(400).json({ message: 'Invalid credentials' });
+        if (!user) {
+            return res.status(401).json({ message: 'Invalid credentials' });
+        }
+
+        // Use bcrypt directly since we used lean()
+        const isMatch = await bcrypt.compare(password, user.password);
+
+        if (!isMatch) {
+            return res.status(400).json({ message: 'Invalid credentials' });
+        }
 
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1d' });
-        res.json({ token, user: { id: user._id, name: user.name, email: user.email, grade: user.grade } });
+        res.json({
+            token,
+            user: {
+                id: user._id,
+                name: user.name,
+                email: user.email,
+                grade: user.grade
+            }
+        });
     } catch (err) {
+        console.error('Login error:', err);
         res.status(500).json({ message: 'Server error' });
     }
 });
@@ -58,7 +94,10 @@ app.get('/api/me', async (req, res) => {
         if (!token) return res.status(401).json({ message: 'No token, authorization denied' });
 
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        const user = await User.findById(decoded.id).select('-password');
+        // Use lean() for faster profile fetch
+        const user = await User.findById(decoded.id).select('-password').lean();
+        if (!user) return res.status(404).json({ message: 'User not found' });
+
         res.json(user);
     } catch (err) {
         res.status(401).json({ message: 'Token is not valid' });

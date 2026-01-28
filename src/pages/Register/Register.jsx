@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate, Link } from 'react-router-dom';
-import { User, Mail, Lock, GraduationCap, ArrowLeft, ArrowRight, Sparkles } from 'lucide-react';
+import { User, Mail, Lock, GraduationCap, ArrowRight, Sparkles } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 
 const Register = () => {

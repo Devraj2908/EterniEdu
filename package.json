@@ -25,7 +25,7 @@
   "scripts": {
     "start": "react-scripts start",
     "server": "node server/index.js",
-    "build": "react-scripts build",
+    "build": "cross-env CI=false react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -49,5 +49,8 @@
   },
   "engines": {
     "node": "24.x"
+  },
+  "devDependencies": {
+    "cross-env": "^10.1.0"
   }
 }

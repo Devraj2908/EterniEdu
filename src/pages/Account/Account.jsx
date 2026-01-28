@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useAuth } from '../../context/AuthContext';
-import { Mail, GraduationCap, Calendar, LogOut, User, Shield, BookOpen } from 'lucide-react';
+import { Mail, GraduationCap, Calendar, LogOut, Shield } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const Account = () => {

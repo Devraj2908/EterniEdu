@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, BookOpen, User, LogOut, LayoutDashboard, Settings } from 'lucide-react';
+import { Menu, X, BookOpen, User, LogOut, LayoutDashboard } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '../../context/AuthContext';
 

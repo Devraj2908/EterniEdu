@@ -2,6 +2,18 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 
 const AuthContext = createContext();
 
+// Dynamic API URL for both local and mobile testing
+const getApiUrl = () => {
+    const hostname = window.location.hostname;
+    // If we are on mobile or accessing via IP, use that IP for the backend too
+    if (hostname !== 'localhost' && hostname !== '127.0.0.1') {
+        return `http://${hostname}:5000/api`;
+    }
+    return 'http://localhost:5000/api';
+};
+
+const API_BASE = getApiUrl();
+
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
@@ -15,7 +27,7 @@ export const AuthProvider = ({ children }) => {
             const token = localStorage.getItem('token');
             if (token && !currentUser) {
                 try {
-                    const response = await fetch('http://localhost:5000/api/me', {
+                    const response = await fetch(`${API_BASE}/me`, {
                         headers: { 'x-auth-token': token }
                     });
                     if (response.ok) {
@@ -38,7 +50,7 @@ export const AuthProvider = ({ children }) => {
     const login = async (email, password) => {
         setFetching(true);
         try {
-            const response = await fetch('http://localhost:5000/api/login', {
+            const response = await fetch(`${API_BASE}/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password })
@@ -62,7 +74,7 @@ export const AuthProvider = ({ children }) => {
     const register = async (userData) => {
         setFetching(true);
         try {
-            const response = await fetch('http://localhost:5000/api/register', {
+            const response = await fetch(`${API_BASE}/register`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(userData)

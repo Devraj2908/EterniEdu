@@ -13,16 +13,50 @@ app.use(cors());
 app.use(express.json());
 
 // MongoDB Connection
-console.time('DB Connection');
-mongoose.connect(process.env.MONGODB_URI)
-    .then(() => {
+const connectDB = async () => {
+    try {
+        console.log('⏳ Connecting to MongoDB Atlas...');
+        console.time('DB Connection');
+        // Simplified connection for potential TLS/SSL issues
+        await mongoose.connect(process.env.MONGODB_URI, {
+            serverSelectionTimeoutMS: 15000,
+        });
         console.timeEnd('DB Connection');
-        console.log('Connected to MongoDB');
-    })
-    .catch(err => {
+        console.log('✅ Connected to MongoDB Atlas');
+    } catch (err) {
         console.timeEnd('DB Connection');
-        console.error('Could not connect to MongoDB', err);
+        console.error('❌ MongoDB Connection Error:', err.name, '-', err.message);
+
+        if (err.message.includes('SSL') || err.message.includes('TLS')) {
+            console.error('👉 TIP: This looks like an SSL/TLS error. Ensure your firewall/antivirus is not blocking the connection.');
+        } else if (err.name === 'MongooseServerSelectionError' || err.message.includes('Server selection timed out')) {
+            console.error('👉 TIP: This is likely an IP Whitelist issue. Ensure your current IP is allowed in MongoDB Atlas.');
+            console.error('👉 Check Atlas: https://cloud.mongodb.com/v2/cluster/security/whitelist');
+        }
+    }
+};
+
+connectDB();
+
+// Health Check & DB Status
+app.get('/api/health', (req, res) => {
+    const states = ['disconnected', 'connected', 'connecting', 'disconnecting'];
+    res.json({
+        status: 'ok',
+        database: states[mongoose.connection.readyState],
+        timestamp: new Date().toISOString()
     });
+});
+
+// Middleware to check DB connection
+app.use((req, res, next) => {
+    if (mongoose.connection.readyState !== 1 && !req.url.includes('/api/health')) {
+        return res.status(530).json({ // Use 530 to distinguish from standard 503
+            message: 'Database connection is currently down. If you just whitelisted your IP, please wait 30 seconds and refresh.'
+        });
+    }
+    next();
+});
 
 // Middleware for logging request time
 app.use((req, res, next) => {

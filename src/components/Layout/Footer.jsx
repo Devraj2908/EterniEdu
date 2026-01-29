@@ -78,8 +78,8 @@ const Footer = () => {
                 }}>
                     <p>&copy; {new Date().getFullYear()} EterniEdu. Crafted for Excellence.</p>
                     <div style={{ display: 'flex', gap: '2rem' }}>
-                        <a href="#" style={{ color: 'var(--text-muted)' }}>Privacy Policy</a>
-                        <a href="#" style={{ color: 'var(--text-muted)' }}>Terms of Service</a>
+                        <a href="#!" style={{ color: 'var(--text-muted)' }}>Privacy Policy</a>
+                        <a href="#!" style={{ color: 'var(--text-muted)' }}>Terms of Service</a>
                     </div>
                 </div>
             </div>
@@ -106,7 +106,7 @@ const FooterLink = ({ to, children }) => (
 
 const SocialIcon = ({ icon }) => (
     <a
-        href="#"
+        href="#!"
         style={{
             width: '40px',
             height: '40px',

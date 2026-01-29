@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Terminal, Code, Cpu, Globe, ArrowLeft, Play, Star, ChevronRight } from 'lucide-react';
+import { Terminal, Code, Cpu, Globe, ArrowLeft, Star, ChevronRight } from 'lucide-react';
 
 const Programming = () => {
     const courses = [

@@ -2,13 +2,21 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 
 const AuthContext = createContext();
 
-// Dynamic API URL for both local and mobile testing
+// Dynamic API URL for both local, mobile, and production testing
 const getApiUrl = () => {
     const hostname = window.location.hostname;
-    // If we are on mobile or accessing via IP, use that IP for the backend too
+
+    // 1. If we are on Vercel, use relative path to talk to the same domain's serverless functions
+    if (hostname.includes('vercel.app') || hostname.includes('eterniedu')) {
+        return '/api';
+    }
+
+    // 2. If we are on mobile or accessing via IP (LAN), use that IP for the backend too
     if (hostname !== 'localhost' && hostname !== '127.0.0.1') {
         return `http://${hostname}:5000/api`;
     }
+
+    // 3. Default for laptop development
     return 'http://localhost:5000/api';
 };
 

@@ -14,29 +14,52 @@ app.use(express.json());
 
 // MongoDB Connection
 const connectDB = async () => {
+    // If already connected, return
+    if (mongoose.connection.readyState === 1) {
+        return;
+    }
+
+    // If currently connecting, wait for it
+    if (mongoose.connection.readyState === 2) {
+        console.log('⏳ Waiting for persistent connection attempt...');
+        return new Promise((resolve, reject) => {
+            const timeout = setTimeout(() => {
+                reject(new Error('Database connection timeout while waiting for existing attempt'));
+            }, 10000);
+
+            mongoose.connection.once('connected', () => {
+                clearTimeout(timeout);
+                resolve();
+            });
+            mongoose.connection.once('error', (err) => {
+                clearTimeout(timeout);
+                reject(err);
+            });
+        });
+    }
+
     try {
         console.log('⏳ Connecting to MongoDB Atlas...');
         console.time('DB Connection');
-        // Simplified connection for potential TLS/SSL issues
+
         await mongoose.connect(process.env.MONGODB_URI, {
             serverSelectionTimeoutMS: 15000,
+            connectTimeoutMS: 15000,
         });
+
         console.timeEnd('DB Connection');
         console.log('✅ Connected to MongoDB Atlas');
     } catch (err) {
         console.timeEnd('DB Connection');
         console.error('❌ MongoDB Connection Error:', err.name, '-', err.message);
-
-        if (err.message.includes('SSL') || err.message.includes('TLS')) {
-            console.error('👉 TIP: This looks like an SSL/TLS error. Ensure your firewall/antivirus is not blocking the connection.');
-        } else if (err.name === 'MongooseServerSelectionError' || err.message.includes('Server selection timed out')) {
-            console.error('👉 TIP: This is likely an IP Whitelist issue. Ensure your current IP is allowed in MongoDB Atlas.');
-            console.error('👉 Check Atlas: https://cloud.mongodb.com/v2/cluster/security/whitelist');
-        }
+        throw err; // Re-throw to be handled by the middleware
     }
 };
 
-connectDB();
+// Initial connection attempt
+connectDB().catch(err => {
+    console.error('Initial DB connection failed. Middleware will retry.');
+});
 
 // Health Check & DB Status
 app.get('/api/health', (req, res) => {
@@ -44,18 +67,26 @@ app.get('/api/health', (req, res) => {
     res.json({
         status: 'ok',
         database: states[mongoose.connection.readyState],
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
+        env: process.env.VERCEL ? 'production' : 'development'
     });
 });
 
-// Middleware to check DB connection
-app.use((req, res, next) => {
-    if (mongoose.connection.readyState !== 1 && !req.url.includes('/api/health')) {
-        return res.status(530).json({ // Use 530 to distinguish from standard 503
-            message: 'Database connection is currently down. If you just whitelisted your IP, please wait 30 seconds and refresh.'
+// Middleware to check/establish DB connection
+app.use(async (req, res, next) => {
+    // Skip for health, login, register, me or if it's not an API route (though vercel.json handles this)
+    if (req.url.includes('/api/health')) return next();
+
+    try {
+        await connectDB();
+        next();
+    } catch (err) {
+        console.error('Middleware DB Error:', err.message);
+        return res.status(530).json({
+            message: 'Database connection is currently down. If you just whitelisted your IP, please wait 30 seconds and refresh.',
+            error: process.env.NODE_ENV === 'development' ? err.message : undefined
         });
     }
-    next();
 });
 
 // Middleware for logging request time

@@ -81,41 +81,71 @@ const notesData = {
             ]
         },
         'gravitation-numericals': {
-            heading: 'Chapter 1: Gravitation - Solved Numericals',
-            title: 'Gravitation: Numerical Problem Set',
-            desc: 'Step-by-step solutions to board-level and competitive numerical problems.',
+            heading: 'Chapter 1: Gravitation - Solved Numericals (Detailed)',
+            title: 'Gravitation: Step-by-Step Problem Solving',
+            desc: 'A vast collection of numericals solved with the "Given-Formula-Solution" approach to ensure maximum marks.',
             lastUpdated: 'Jan 31, 2026',
             sections: [
                 {
-                    heading: 'Section 1: Force and G Calculation',
-                    content: 'Using Newton’s Law of Gravitation: F = Gm₁m₂/r²',
+                    heading: '1. Newton’s Universal Law of Gravitation',
+                    content: 'Focus: F = G m₁m₂ / r²',
                     points: [
-                        'Problem 1: Calculate the force between two bodies of 50kg and 100kg kept 2m apart.',
-                        'Solution: F = (6.67e-11 * 50 * 100) / 2² = (3.335e-7) / 4 = 8.33 × 10⁻⁸ N.'
+                        'Problem: Calculate the gravitational force between Earth (M = 6 × 10²⁴ kg) and the Moon (m = 7.4 × 10²² kg). Distance between them is r = 3.84 × 10⁵ km.',
+                        'Step 1 (Given): m₁ = 6 × 10²⁴ kg, m₂ = 7.4 × 10²² kg, r = 3.84 × 10⁸ m (converted from km), G = 6.67 × 10⁻¹¹ Nm²/kg².',
+                        'Step 2 (Formula): F = G m₁m₂ / r²',
+                        'Step 3 (Calculation): F = (6.67 × 10⁻¹¹ × 6 × 10²⁴ × 7.4 × 10²²) / (3.84 × 10⁸)²',
+                        'Step 4 (Simplification): F = (296.148 × 10³⁵) / (14.7456 × 10¹⁶) = 20.08 × 10¹⁹ N.',
+                        'Final Answer: F ≈ 2 × 10²⁰ N.'
                     ]
                 },
                 {
-                    heading: 'Section 2: Acceleration due to Gravity (g)',
-                    content: 'Using g = GM/R²',
+                    heading: '2. Acceleration due to Gravity on Different Planets',
+                    content: 'Focus: g = GM / R²',
                     points: [
-                        'Problem: If mass of a planet is 2 times Earth and radius is 3 times, find g on that planet.',
-                        'Solution: g_p = G(2M)/(3R)² = 2/9 * (GM/R²) = 2/9 * 9.8 = 2.17 m/s².'
+                        'Problem: A planet has mass twice that of Earth and radius thrice that of Earth. If g on Earth is 9.8 m/s², find g on the planet.',
+                        'Step 1 (Given): M_p = 2M_e, R_p = 3R_e, g_e = 9.8 m/s².',
+                        'Step 2 (Formula): g = GM / R²',
+                        'Step 3 (Derivation): g_p / g_e = (G M_p / R_p²) / (G M_e / R_e²) = (M_p / M_e) × (R_e / R_p)²',
+                        'Step 4 (Substitution): g_p / g_e = (2M_e / M_e) × (R_e / 3R_e)² = 2 × (1/9) = 2/9.',
+                        'Step 5 (Calculation): g_p = (2/9) × 9.8 = 19.6 / 9 = 2.17 m/s².',
+                        'Final Answer: g_planet = 2.17 m/s².'
                     ]
                 },
                 {
-                    heading: 'Section 3: Free Fall Equations',
-                    content: 'Using v=gt, s=½gt², v²=2gs',
+                    heading: '3. Variation of g with Height',
+                    content: 'Focus: g_h = GM / (R+h)²',
                     points: [
-                        'Problem: A ball is dropped from a height of 125m. Find the time taken to reach the ground.',
-                        'Solution: s = ½gt² => 125 = ½ * 10 * t² => 125 = 5t² => t² = 25 => t = 5 seconds.'
+                        'Problem: At what height above the Earth’s surface does the value of g become 1/4th of its value on the surface? (Radius of Earth R = 6400 km)',
+                        'Step 1 (Given): g_h = g/4, R = 6400 km.',
+                        'Step 2 (Formula): g ∝ 1/r², so g_h / g = R² / (R+h)²',
+                        'Step 3 (Calculation): 1/4 = R² / (R+h)²',
+                        'Step 4 (Square Root): 1/2 = R / (R+h)',
+                        'Step 5 (Cross Multiplication): R+h = 2R => h = R.',
+                        'Final Answer: Height h = 6400 km.'
                     ]
                 },
                 {
-                    heading: 'Section 4: Escape Velocity & Energy',
-                    content: 'Using v = √(2gR)',
+                    heading: '4. Motion Under Gravity (Free Fall)',
+                    content: 'Focus: s = ½gt², v = gt, v² = 2gs',
                     points: [
-                        'Problem: Calculate escape velocity for a planet with g=20m/s² and R=5000km.',
-                        'Solution: v = √(2 * 20 * 5,000,000) = √(200,000,000) = 14,142 m/s = 14.1 km/s.'
+                        'Problem: An iron ball of mass 3 kg is released from a height of 125 m and falls freely to the ground. Find the time taken and velocity on reaching the ground (take g = 10 m/s²).',
+                        'Step 1 (Given): u = 0, s = 125 m, g = 10 m/s².',
+                        'Step 2 (Finding Time): s = ut + ½gt² => 125 = 0 + ½(10)t² => 125 = 5t² => t² = 25.',
+                        'Step 3 (Result t): t = 5 seconds.',
+                        'Step 4 (Finding Velocity): v = u + gt => v = 0 + 10(5) = 50 m/s.',
+                        'Final Answer: Time = 5s, Final Velocity = 50 m/s.'
+                    ]
+                },
+                {
+                    heading: '5. Escape Velocity Calculation',
+                    content: 'Focus: v_esc = √(2GM/R)',
+                    points: [
+                        'Problem: Calculate the escape velocity on the Moon. (Mass of Moon = 7.34 × 10²² kg, Radius = 1.74 × 10⁶ m)',
+                        'Step 1 (Given): M = 7.34 × 10²² kg, R = 1.74 × 10⁶ m, G = 6.67 × 10⁻¹¹ Nm²/kg².',
+                        'Step 2 (Formula): v_esc = √(2GM/R)',
+                        'Step 3 (Calculation): v_esc = √[(2 × 6.67 × 10⁻¹¹ × 7.34 × 10²²) / (1.74 × 10⁶)]',
+                        'Step 4 (Simplification): v_esc = √[97.935 × 10¹¹ / 1.74 × 10⁶] = √[5.628 × 10⁶] = 2.37 × 10³ m/s.',
+                        'Final Answer: Escape Velocity ≈ 2.37 km/s.'
                     ]
                 }
             ]

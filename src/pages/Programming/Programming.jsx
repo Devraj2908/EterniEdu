@@ -72,9 +72,18 @@ const Programming = () => {
                                         <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>{course.duration}</span>
                                     </div>
                                     <h3 style={{ fontSize: '1.5rem', marginBottom: '1.5rem' }}>{course.name}</h3>
-                                    <button className="btn btn-outline" style={{ width: '100%', justifyContent: 'space-between' }}>
-                                        Start Module <ChevronRight size={18} />
-                                    </button>
+                                    <div style={{ display: 'flex', gap: '10px' }}>
+                                        <button
+                                            className="btn btn-outline"
+                                            style={{ flex: 1, fontSize: '0.85rem' }}
+                                            onClick={() => alert('The specific curriculum for ' + course.name + ' is being generated. Check back in 24 hours!')}
+                                        >
+                                            Curriculum
+                                        </button>
+                                        <button className="btn btn-primary" style={{ flex: 1.5, fontSize: '0.85rem' }}>
+                                            Start Learning
+                                        </button>
+                                    </div>
                                 </div>
                             </motion.div>
                         ))}

@@ -11,6 +11,7 @@ import { gradesData } from '../../data/gradesData';
 const SectionPage = () => {
     const { id } = useParams();
     const [activeTab, setActiveTab] = useState('notes');
+    const [previewPdf, setPreviewPdf] = useState(null);
 
     const data = gradesData[id] || {
         title: 'Course Track',
@@ -159,9 +160,34 @@ const SectionPage = () => {
                                                         <CheckCircle2 size={14} /> {note.copyright}
                                                     </div>
                                                 </div>
-                                                <button className="btn btn-outline" style={{ width: '100%', justifyContent: 'center', gap: '8px' }}>
-                                                    <Download size={18} /> Download PDF
-                                                </button>
+                                                <div style={{ display: 'flex', gap: '10px' }}>
+                                                    <button
+                                                        className="btn btn-outline"
+                                                        style={{ flex: 1, justifyContent: 'center', gap: '8px' }}
+                                                        onClick={() => {
+                                                            if (note.pdfUrl && note.pdfUrl !== '#') {
+                                                                setPreviewPdf(note);
+                                                            } else {
+                                                                alert('This specialized note is currently being finalized. Stay tuned!');
+                                                            }
+                                                        }}
+                                                    >
+                                                        Preview
+                                                    </button>
+                                                    <button
+                                                        className="btn btn-primary"
+                                                        style={{ flex: 1, justifyContent: 'center', gap: '8px' }}
+                                                        onClick={() => {
+                                                            if (note.pdfUrl && note.pdfUrl !== '#') {
+                                                                window.open(note.pdfUrl, '_blank');
+                                                            } else {
+                                                                alert('This specialized note is currently being finalized. It will be available for download very soon!');
+                                                            }
+                                                        }}
+                                                    >
+                                                        <Download size={18} /> PDF
+                                                    </button>
+                                                </div>
                                             </div>
                                         )) : renderEmptyState('notes')}
                                     </div>
@@ -253,6 +279,74 @@ const SectionPage = () => {
                             </p>
                         </div>
                     </div>
+
+                    {/* PDF Preview Modal */}
+                    <AnimatePresence>
+                        {previewPdf && (
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                style={{
+                                    position: 'fixed',
+                                    top: 0,
+                                    left: 0,
+                                    right: 0,
+                                    bottom: 0,
+                                    background: 'rgba(0,0,0,0.9)',
+                                    zIndex: 2000,
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    padding: '2rem'
+                                }}
+                                onClick={() => setPreviewPdf(null)}
+                            >
+                                <motion.div
+                                    initial={{ scale: 0.9, opacity: 0 }}
+                                    animate={{ scale: 1, opacity: 1 }}
+                                    exit={{ scale: 0.9, opacity: 0 }}
+                                    style={{
+                                        width: '100%',
+                                        maxWidth: '1000px',
+                                        height: '90vh',
+                                        background: 'var(--bg-secondary)',
+                                        borderRadius: 'var(--radius-lg)',
+                                        overflow: 'hidden',
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        border: '1px solid var(--accent-gold)'
+                                    }}
+                                    onClick={(e) => e.stopPropagation()}
+                                >
+                                    <div style={{ padding: '1.5rem', borderBottom: '1px solid var(--glass-border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                        <div>
+                                            <h3 style={{ margin: 0 }}>{previewPdf.title}</h3>
+                                            <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>{previewPdf.copyright}</span>
+                                        </div>
+                                        <button
+                                            onClick={() => setPreviewPdf(null)}
+                                            style={{ background: 'none', border: 'none', color: 'var(--text-primary)', cursor: 'pointer' }}
+                                        >
+                                            <ArrowLeft size={24} style={{ transform: 'rotate(90deg)' }} />
+                                        </button>
+                                    </div>
+                                    <div style={{ flex: 1, background: '#fff' }}>
+                                        <iframe
+                                            src={`${previewPdf.pdfUrl}#toolbar=0`}
+                                            width="100%"
+                                            height="100%"
+                                            style={{ border: 'none' }}
+                                            title="PDF Preview"
+                                        />
+                                    </div>
+                                    <div style={{ padding: '1rem', textAlign: 'center', color: 'var(--text-muted)', fontSize: '0.75rem' }}>
+                                        Preview Mode - Download for full offline access.
+                                    </div>
+                                </motion.div>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
                 </motion.div>
             </div>
         </div>

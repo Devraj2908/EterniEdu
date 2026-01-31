@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Book, Code, Award, Zap, ArrowRight, Clock, Star, Play, FileText } from 'lucide-react';
+import { Book, Code, Award, Zap, ArrowRight, Clock, Star, Play, FileText, Download } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { gradesData } from '../../data/gradesData';
 
@@ -169,9 +169,24 @@ const Dashboard = () => {
                                         <h4 style={{ fontSize: '1rem', marginBottom: '0.25rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{note.title}</h4>
                                         <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Premium Copyrighted Note</p>
                                     </div>
-                                    <Link to={`/section/${userGrade}`} className="btn btn-outline" style={{ fontSize: '0.8rem', padding: '0.5rem', justifyContent: 'center' }}>
-                                        View Note
-                                    </Link>
+                                    <div style={{ display: 'flex', gap: '0.5rem', marginTop: 'auto' }}>
+                                        <Link to={`/section/${userGrade}`} className="btn btn-outline" style={{ flex: 1, fontSize: '0.8rem', padding: '0.5rem', justifyContent: 'center' }}>
+                                            View
+                                        </Link>
+                                        <button
+                                            className="btn btn-primary"
+                                            style={{ padding: '8px', minWidth: '40px', justifyContent: 'center' }}
+                                            onClick={() => {
+                                                if (note.pdfUrl && note.pdfUrl !== '#') {
+                                                    window.open(note.pdfUrl, '_blank');
+                                                } else {
+                                                    alert('This specialized note is currently being finalized. It will be available for download very soon!');
+                                                }
+                                            }}
+                                        >
+                                            <Download size={16} />
+                                        </button>
+                                    </div>
                                 </motion.div>
                             )) || (
                                     <div style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '3rem', background: 'var(--glass-bg)', borderRadius: 'var(--radius-md)', color: 'var(--text-muted)' }}>

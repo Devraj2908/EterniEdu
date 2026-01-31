@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
     Play, FileText, Layout, ArrowLeft, Clock,
     BookOpen, Lock, Download, ChevronRight,
-    CheckCircle2, Info, Book as BookIcon
+    CheckCircle2, Info, HelpCircle, Book as BookIcon
 } from 'lucide-react';
 import { gradesData } from '../../data/gradesData';
 
@@ -260,7 +260,41 @@ const SectionPage = () => {
                                     </div>
                                 )}
 
-                                {(activeTab === 'tests') && renderEmptyState('mock tests')}
+                                {activeTab === 'tests' && (
+                                    <div className="grid grid-cols-1 md-grid-cols-2" style={{ gap: '2rem' }}>
+                                        {data.resources.tests && data.resources.tests.length > 0 ? data.resources.tests.map((test) => (
+                                            <div key={test.id} className="glass" style={{
+                                                padding: '2rem',
+                                                borderRadius: 'var(--radius-lg)',
+                                                border: '1px solid var(--glass-border)',
+                                                display: 'flex',
+                                                flexDirection: 'column',
+                                                gap: '1.5rem'
+                                            }}>
+                                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                                                    <div style={{ padding: '12px', background: 'var(--accent-gold-glow)', borderRadius: '12px' }}>
+                                                        <HelpCircle size={24} style={{ color: 'var(--accent-gold)' }} />
+                                                    </div>
+                                                    <div style={{ textAlign: 'right' }}>
+                                                        <span style={{ fontSize: '0.75rem', fontWeight: '700', color: 'var(--accent-gold)', background: 'var(--accent-gold-glow)', padding: '2px 8px', borderRadius: '4px' }}>
+                                                            {test.difficulty}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <h3 style={{ fontSize: '1.25rem', marginBottom: '0.5rem' }}>{test.title}</h3>
+                                                    <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', color: 'var(--text-muted)', fontSize: '0.85rem' }}>
+                                                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}><Clock size={14} /> {test.duration}</div>
+                                                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}><CheckCircle2 size={14} /> {test.questions} Qs</div>
+                                                    </div>
+                                                </div>
+                                                <Link to={test.path} className="btn btn-primary" style={{ width: '100%', justifyContent: 'center' }}>
+                                                    Start Test
+                                                </Link>
+                                            </div>
+                                        )) : renderEmptyState('mock tests')}
+                                    </div>
+                                )}
                             </motion.div>
                         </AnimatePresence>
                     </div>

@@ -21,6 +21,9 @@ export const gradesData = {
             videos: [
                 { id: '10v1', title: 'Introduction to Light Reflection', duration: '15:20', status: 'Available' },
                 { id: '10v2', title: 'Chemical Bond Foundations', duration: '22:10', status: 'Available' }
+            ],
+            tests: [
+                { id: '10t1', title: 'Chapter 1: Gravitation Mega Mock Test', questions: 25, duration: '30 mins', difficulty: 'Balanced', path: '/mock-test/10th/gravitation' }
             ]
         }
     },

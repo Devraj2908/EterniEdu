@@ -8,6 +8,7 @@ import Dashboard from './pages/Dashboard/Dashboard';
 import Account from './pages/Account/Account';
 import SectionPage from './pages/Section/SectionPage';
 import LiveNotes from './pages/Section/LiveNotes';
+import MockTest from './pages/Section/MockTest';
 import Programming from './pages/Programming/Programming';
 import './App.css';
 
@@ -66,6 +67,16 @@ function App() {
             <PrivateRoute>
               <Layout>
                 <LiveNotes />
+              </Layout>
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/mock-test/:grade/:testId"
+          element={
+            <PrivateRoute>
+              <Layout>
+                <MockTest />
               </Layout>
             </PrivateRoute>
           }

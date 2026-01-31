@@ -1,32 +1,60 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { Play, FileText, Layout, ArrowLeft, Clock, BookOpen, Lock } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import {
+    Play, FileText, Layout, ArrowLeft, Clock,
+    BookOpen, Lock, Download, ChevronRight,
+    CheckCircle2, Info, Book as BookIcon
+} from 'lucide-react';
+import { gradesData } from '../../data/gradesData';
 
 const SectionPage = () => {
     const { id } = useParams();
+    const [activeTab, setActiveTab] = useState('notes');
 
-    const sectionData = {
-        '10th': { title: 'Class 10th Mastery', desc: 'Comprehensive board exam preparation covering Science, Maths, and Social Studies.' },
-        '11th': { title: 'Class 11th Foundation', desc: 'Building strong foundations for competitive exams in Physics, Chemistry, and Mathematics.' },
-        '12th': { title: 'Class 12th Advanced', desc: 'Mastering advanced concepts for final board exams and future academic pursuits.' },
-        'neet': { title: 'NEET Excellence', desc: 'Specialized medical entrance coaching with deep focus on Biology, Physics, and Chemistry.' },
-        'jee': { title: 'JEE Advanced Prep', desc: 'Intensive engineering entrance training for top-tier technical institutions.' },
-        'cet': { title: 'CET Success Path', desc: 'Focused preparation for state-level common entrance tests and public service bases.' },
+    const data = gradesData[id] || {
+        title: 'Course Track',
+        desc: 'Your personalized learning path.',
+        resources: { notes: [], books: [], videos: [] }
     };
 
-    const data = sectionData[id] || { title: 'Course Track', desc: 'Your personalized learning path.' };
-
-    const modules = [
-        { title: "Video Lectures", icon: <Play size={24} />, count: "45+ Videos", status: "Coming Soon" },
-        { title: "Study Material", icon: <FileText size={24} />, count: "120+ PDFs", status: "Coming Soon" },
-        { title: "Mock Tests", icon: <Layout size={24} />, count: "15 Tests", status: "Coming Soon" }
+    const tabs = [
+        { id: 'notes', label: 'Study Notes', icon: <FileText size={18} /> },
+        { id: 'books', label: 'Recommended Books', icon: <BookIcon size={18} /> },
+        { id: 'videos', label: 'Video Lectures', icon: <Play size={18} /> },
+        { id: 'tests', label: 'Mock Tests', icon: <Layout size={18} /> }
     ];
+
+    const renderEmptyState = (type) => (
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            style={{
+                textAlign: 'center',
+                padding: '4rem 2rem',
+                background: 'var(--glass-bg)',
+                borderRadius: 'var(--radius-lg)',
+                border: '1px dashed var(--glass-border)'
+            }}
+        >
+            <Info size={48} style={{ color: 'var(--text-muted)', marginBottom: '1.5rem', opacity: 0.5 }} />
+            <h3 style={{ fontSize: '1.25rem', marginBottom: '0.5rem' }}>No {type} available yet</h3>
+            <p style={{ color: 'var(--text-muted)' }}>We are currently uploading fresh, copyrighted content for this section.</p>
+        </motion.div>
+    );
 
     return (
         <div style={{ minHeight: '100vh', background: 'var(--bg-primary)', paddingTop: '120px', paddingBottom: '5rem' }}>
             <div className="container">
-                <Link to="/dashboard" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', color: 'var(--text-secondary)', marginBottom: '2rem', fontSize: '0.9rem' }}>
+                <Link to="/dashboard" style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    color: 'var(--text-secondary)',
+                    marginBottom: '2rem',
+                    fontSize: '0.9rem',
+                    transition: 'var(--transition)'
+                }} className="hover:text-gold">
                     <ArrowLeft size={16} /> Back to Dashboard
                 </Link>
 
@@ -34,82 +62,196 @@ const SectionPage = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                 >
-                    <div style={{ marginBottom: '4rem' }}>
+                    <header style={{ marginBottom: '4rem' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '12px', color: 'var(--accent-gold)', marginBottom: '1rem' }}>
                             <BookOpen size={20} />
-                            <span style={{ fontWeight: '600', textTransform: 'uppercase', letterSpacing: '1px' }}>Enrolled Track</span>
+                            <span style={{ fontWeight: '600', textTransform: 'uppercase', letterSpacing: '2px', fontSize: '0.8rem' }}>Academic Resource Hub</span>
                         </div>
-                        <h1 style={{ fontSize: 'clamp(2.5rem, 6vw, 4rem)', marginBottom: '1.5rem' }}>{data.title}</h1>
-                        <p style={{ fontSize: '1.25rem', color: 'var(--text-secondary)', maxWidth: '800px', lineHeight: '1.8' }}>
+                        <h1 style={{ fontSize: 'clamp(2.5rem, 6vw, 4rem)', marginBottom: '1.5rem', fontWeight: '800' }}>{data.title}</h1>
+                        <p style={{ fontSize: '1.2rem', color: 'var(--text-secondary)', maxWidth: '800px', lineHeight: '1.8' }}>
                             {data.desc}
                         </p>
-                    </div>
+                    </header>
 
-                    <div className="grid grid-cols-1 md-grid-cols-3" style={{ gap: '2rem' }}>
-                        {modules.map((module, i) => (
-                            <motion.div
-                                key={i}
-                                initial={{ opacity: 0, scale: 0.95 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                transition={{ delay: i * 0.1 }}
-                                className="glass-morphism"
+                    {/* Tabs Navigation */}
+                    <div style={{
+                        display: 'flex',
+                        gap: '1rem',
+                        marginBottom: '3rem',
+                        overflowX: 'auto',
+                        paddingBottom: '0.5rem',
+                        scrollbarWidth: 'none'
+                    }}>
+                        {tabs.map((tab) => (
+                            <button
+                                key={tab.id}
+                                onClick={() => setActiveTab(tab.id)}
                                 style={{
-                                    padding: '2.5rem',
                                     display: 'flex',
-                                    flexDirection: 'column',
-                                    gap: '1.5rem',
-                                    position: 'relative',
-                                    overflow: 'hidden'
+                                    alignItems: 'center',
+                                    gap: '10px',
+                                    padding: '1rem 1.5rem',
+                                    borderRadius: 'var(--radius-md)',
+                                    background: activeTab === tab.id ? 'var(--accent-gold)' : 'var(--glass-bg)',
+                                    color: activeTab === tab.id ? 'var(--bg-primary)' : 'var(--text-secondary)',
+                                    border: '1px solid',
+                                    borderColor: activeTab === tab.id ? 'var(--accent-gold)' : 'var(--glass-border)',
+                                    cursor: 'pointer',
+                                    fontWeight: '600',
+                                    whiteSpace: 'nowrap',
+                                    transition: 'all 0.3s ease'
                                 }}
                             >
-                                <div style={{
-                                    width: '60px',
-                                    height: '60px',
-                                    borderRadius: 'var(--radius-md)',
-                                    background: 'var(--bg-tertiary)',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    color: 'var(--accent-gold)',
-                                    border: '1px solid var(--glass-border)'
-                                }}>
-                                    {module.icon}
-                                </div>
-
-                                <div>
-                                    <h3 style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>{module.title}</h3>
-                                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--text-muted)', fontSize: '0.9rem' }}>
-                                        <Clock size={14} /> {module.count}
-                                    </div>
-                                </div>
-
-                                <div style={{
-                                    marginTop: 'auto',
-                                    padding: '0.75rem',
-                                    background: 'var(--glass-bg)',
-                                    borderRadius: 'var(--radius-sm)',
-                                    textAlign: 'center',
-                                    color: 'var(--text-muted)',
-                                    fontSize: '0.85rem',
-                                    fontWeight: '600',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    gap: '8px',
-                                    border: '1px solid var(--glass-border)'
-                                }}>
-                                    <Lock size={14} /> {module.status}
-                                </div>
-                            </motion.div>
+                                {tab.icon}
+                                {tab.label}
+                            </button>
                         ))}
                     </div>
 
-                    <div className="glass" style={{ marginTop: '5rem', padding: '3rem', borderRadius: 'var(--radius-lg)', textAlign: 'center' }}>
-                        <h2 style={{ marginBottom: '1rem' }}>Continuously Updating</h2>
-                        <p style={{ color: 'var(--text-secondary)', maxWidth: '700px', margin: '0 auto' }}>
-                            We are currently uploading new batches of high-quality lectures and study materials.
-                            Check back soon for the full experience.
-                        </p>
+                    {/* Tab Content */}
+                    <div style={{ position: 'relative' }}>
+                        <AnimatePresence mode="wait">
+                            <motion.div
+                                key={activeTab}
+                                initial={{ opacity: 0, x: 20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                exit={{ opacity: 0, x: -20 }}
+                                transition={{ duration: 0.3 }}
+                            >
+                                {activeTab === 'notes' && (
+                                    <div className="grid grid-cols-1 md-grid-cols-2 lg-grid-cols-3" style={{ gap: '1.5rem' }}>
+                                        {data.resources.notes.length > 0 ? data.resources.notes.map((note) => (
+                                            <div key={note.id} className="glass" style={{
+                                                padding: '2rem',
+                                                borderRadius: 'var(--radius-lg)',
+                                                border: '1px solid var(--glass-border)',
+                                                display: 'flex',
+                                                flexDirection: 'column',
+                                                gap: '1.5rem'
+                                            }}>
+                                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                                                    <div style={{
+                                                        width: '48px',
+                                                        height: '48px',
+                                                        background: 'var(--bg-tertiary)',
+                                                        borderRadius: 'var(--radius-sm)',
+                                                        display: 'flex',
+                                                        alignItems: 'center',
+                                                        justifyContent: 'center',
+                                                        color: 'var(--accent-gold)'
+                                                    }}>
+                                                        <FileText size={24} />
+                                                    </div>
+                                                    <span style={{
+                                                        fontSize: '0.7rem',
+                                                        color: 'var(--accent-gold)',
+                                                        background: 'rgba(212, 175, 55, 0.1)',
+                                                        padding: '4px 8px',
+                                                        borderRadius: 'var(--radius-sm)',
+                                                        fontWeight: '700'
+                                                    }}>
+                                                        PREMIUM
+                                                    </span>
+                                                </div>
+                                                <div>
+                                                    <h3 style={{ fontSize: '1.25rem', marginBottom: '0.5rem' }}>{note.title}</h3>
+                                                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--text-muted)', fontSize: '0.85rem' }}>
+                                                        <CheckCircle2 size={14} /> {note.copyright}
+                                                    </div>
+                                                </div>
+                                                <button className="btn btn-outline" style={{ width: '100%', justifyContent: 'center', gap: '8px' }}>
+                                                    <Download size={18} /> Download PDF
+                                                </button>
+                                            </div>
+                                        )) : renderEmptyState('notes')}
+                                    </div>
+                                )}
+
+                                {activeTab === 'books' && (
+                                    <div className="grid grid-cols-1" style={{ gap: '1rem' }}>
+                                        {data.resources.books.length > 0 ? data.resources.books.map((book) => (
+                                            <div key={book.id} className="glass" style={{
+                                                padding: '1.5rem 2rem',
+                                                borderRadius: 'var(--radius-md)',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                gap: '2rem',
+                                                justifyContent: 'space-between'
+                                            }}>
+                                                <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+                                                    <div style={{ color: 'var(--accent-gold)', opacity: 0.7 }}>
+                                                        <BookIcon size={32} />
+                                                    </div>
+                                                    <div>
+                                                        <h4 style={{ fontSize: '1.1rem', marginBottom: '4px' }}>{book.title}</h4>
+                                                        <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>{book.category} Recommendation</span>
+                                                    </div>
+                                                </div>
+                                                <button style={{
+                                                    background: 'none',
+                                                    border: 'none',
+                                                    color: 'var(--accent-gold)',
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    gap: '8px',
+                                                    cursor: 'pointer',
+                                                    fontWeight: '600'
+                                                }}>
+                                                    View Details <ChevronRight size={18} />
+                                                </button>
+                                            </div>
+                                        )) : renderEmptyState('books')}
+                                    </div>
+                                )}
+
+                                {activeTab === 'videos' && (
+                                    <div className="grid grid-cols-1 md-grid-cols-2" style={{ gap: '2rem' }}>
+                                        {data.resources.videos.length > 0 ? data.resources.videos.map((video) => (
+                                            <div key={video.id} className="glass" style={{ borderRadius: 'var(--radius-lg)', overflow: 'hidden' }}>
+                                                <div style={{ height: '200px', background: 'var(--bg-tertiary)', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
+                                                    <div style={{ width: '64px', height: '64px', borderRadius: '50%', background: 'var(--accent-gold)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--bg-primary)', cursor: 'pointer' }}>
+                                                        <Play size={24} fill="currentColor" />
+                                                    </div>
+                                                </div>
+                                                <div style={{ padding: '1.5rem' }}>
+                                                    <h4 style={{ fontSize: '1.1rem', marginBottom: '0.5rem' }}>{video.title}</h4>
+                                                    <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', color: 'var(--text-muted)', fontSize: '0.85rem' }}>
+                                                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}><Clock size={14} /> {video.duration}</div>
+                                                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}><Lock size={14} /> Locked by Grade</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        )) : renderEmptyState('video lectures')}
+                                    </div>
+                                )}
+
+                                {(activeTab === 'tests') && renderEmptyState('mock tests')}
+                            </motion.div>
+                        </AnimatePresence>
+                    </div>
+
+                    {/* Educational Commitment Note */}
+                    <div className="glass-morphism" style={{ marginTop: '5rem', padding: '3rem', borderRadius: 'var(--radius-lg)', display: 'flex', gap: '2rem', alignItems: 'center' }}>
+                        <div style={{
+                            width: '80px',
+                            height: '80px',
+                            background: 'var(--accent-gold-glow)',
+                            borderRadius: '50%',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            flexShrink: 0
+                        }}>
+                            <CheckCircle2 size={40} style={{ color: 'var(--accent-gold)' }} />
+                        </div>
+                        <div>
+                            <h2 style={{ fontSize: '1.5rem', marginBottom: '0.75rem' }}>Our Copyright Guarantee</h2>
+                            <p style={{ color: 'var(--text-secondary)', lineHeight: '1.6' }}>
+                                Every note provided in the study material section is an original creation of the EterniEdu academic team.
+                                We maintain strict copyright standards to ensure you receive unique, high-quality, and legally protected learning content.
+                                No duplication, just pure expertise.
+                            </p>
+                        </div>
                     </div>
                 </motion.div>
             </div>
@@ -118,3 +260,4 @@ const SectionPage = () => {
 };
 
 export default SectionPage;
+

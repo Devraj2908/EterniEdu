@@ -6,6 +6,7 @@ export const gradesData = {
             notes: [
                 { id: '10n0_full', title: 'Chapter 1: Gravitation (Full Chapter)', type: 'Note', author: 'EterniEdu Team', copyright: '© EterniEdu Original', pdfUrl: '/live-notes/10th/gravitation-full' },
                 { id: '10n0_num', title: 'Chapter 1: Gravitation (Numericals)', type: 'Note', author: 'EterniEdu Team', copyright: '© EterniEdu Original', pdfUrl: '/live-notes/10th/gravitation-numericals' },
+                { id: '10n0_subj', title: 'Chapter 1: Gravitation (Important Subjective Qs)', type: 'Note', author: 'EterniEdu Team', copyright: '© EterniEdu Original', pdfUrl: '/live-notes/10th/gravitation-subjective' },
                 { id: '10n0_short', title: 'Chapter 1: Gravitation (Short Revision)', type: 'Note', author: 'EterniEdu Team', copyright: '© EterniEdu Original', pdfUrl: '/live-notes/10th/gravitation-short' },
                 { id: '10n1', title: 'Chapter 2: Chemical Reactions and Equations', type: 'Note', author: 'EterniEdu Team', copyright: '© EterniEdu Original', pdfUrl: 'https://raw.githubusercontent.com/mozilla/pdf.js/ba2edeae/web/compressed.tracemonkey-pldi-09.pdf' },
                 { id: '10n2', title: 'Chapter 3: Acids, Bases and Salts', type: 'Note', author: 'EterniEdu Team', copyright: '© EterniEdu Original', pdfUrl: '/notes/10th_Science_Ch2.pdf' },

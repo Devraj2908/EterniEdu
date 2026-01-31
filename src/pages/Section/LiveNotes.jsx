@@ -150,6 +150,40 @@ const notesData = {
                 }
             ]
         },
+        'gravitation-subjective': {
+            title: 'Chapter 1: Gravitation - Subjective Question Bank',
+            desc: 'A curated list of 2-mark, 3-mark, and 4-mark questions essential for board examinations.',
+            lastUpdated: 'Jan 31, 2026',
+            sections: [
+                {
+                    heading: 'Section 1: 2-Mark Short Answer Questions',
+                    points: [
+                        'Q1: Define Centripetal Force. Give one example.\nAnswer: The force which acts on any body moving in a circle and is directed towards the center of the circle is called centripetal force. Example: The gravitational force of the Earth acting on the Moon.',
+                        'Q2: Why is the value of g zero at the center of the Earth?\nAnswer: As we go towards the center of the Earth, the mass of the Earth that attracts the object effectively decreases. Exactly at the center, the surrounding mass pulls in all directions equally, cancelling the net force, hence g = 0.',
+                        'Q3: State the difference between Mass and Weight.\nAnswer: Mass is the quantity of matter in an object (constant everywhere), whereas Weight is the force with which Earth attracts the object (changes with location).',
+                        'Q4: What is Free Fall?\nAnswer: When an object moves towards the Earth under the influence of Earth\'s gravitational force alone, with no other forces acting on it, it is said to be in free fall.',
+                        'Q5: Write the SI unit and value of Universal Gravitational Constant (G).\nAnswer: SI unit: Nm²/kg². Value: 6.67 × 10⁻¹¹ Nm²/kg².'
+                    ]
+                },
+                {
+                    heading: 'Section 2: 3-Mark Brief Answer Questions',
+                    points: [
+                        'Q1: State Kepler’s three laws of planetary motion.\nAnswer: 1. Law of Orbits: Planetary orbits are ellipses with the Sun at one focus. 2. Law of Areas: Line joining planet and Sun sweeps equal areas in equal intervals of time. 3. Law of Periods: T² ∝ r³.',
+                        'Q2: Explain how the value of g changes with altitude and depth.\nAnswer: Altitude: As we go higher, the distance from Earth\'s center increases, so g decreases (g ∝ 1/R²). Depth: As we go deeper, the mass of Earth responsible for gravity decreases faster than the radius decrease, resulting in an overall decrease in g.',
+                        'Q3: Prove that the weight of an object on the Moon is 1/6th of its weight on the Earth.\nAnswer: By using the formula W = GMm/R² and substituting Moon\'s mass (~1/100 of Earth) and radius (~1/4 of Earth), we find that Moon\'s gravity is approx 1/6th of Earth\'s, thus W_moon = 1/6 W_earth.',
+                        'Q4: What is Gravitational Potential Energy? Write its formula for an object at height h.\nAnswer: It is the energy stored in an object due to its position in a gravitational field. Formula: P.E. = -GMm / (R+h). It is measured relative to infinity where it is zero.'
+                    ]
+                },
+                {
+                    heading: 'Section 3: 4-Mark Long Answer Questions',
+                    points: [
+                        'Q1: Derive the formula for Escape Velocity on Earth.\nAnswer: At surface, Total Energy = K.E + P.E = ½mv² - GMm/R. To escape to infinity (where E=0), initial energy must be ≥ 0. Thus, ½mv² = GMm/R. Solving for v gives v_esc = √(2GM/R). Substituting g = GM/R², we get v_esc = √(2gR).',
+                        'Q2: Explain Newton’s Universal Law of Gravitation in detail and explain its importance.\nAnswer: Law: F = Gm₁m₂/r². Every particle attracts every other particle. Importance: 1. It explains the force that binds us to Earth. 2. It explains the motion of planets around the Sun. 3. It explains the cause of tides due to the Moon and Sun.',
+                        'Q3: Elaborate on the experimental verification of Newton’s Law by Henry Cavendish.\nAnswer: Cavendish used a torsion balance with small and large lead spheres. By measuring the extremely small twisting force between them, he was able to calculate the value of G, which then allowed for the calculation of the Earth\'s mass and density.'
+                    ]
+                }
+            ]
+        },
         'gravitation-short': {
             title: 'Chapter 1: Gravitation - Quick Revision',
             desc: 'Essential formulas and laws for last-minute preparation.',

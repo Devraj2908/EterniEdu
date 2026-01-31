@@ -1,11 +1,12 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Book, Code, Award, Zap, ArrowRight, Clock, Star, Play, FileText, Download } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { gradesData } from '../../data/gradesData';
 
 const Dashboard = () => {
+    const navigate = useNavigate();
     const { currentUser, userGrade } = useAuth();
 
     const allCards = [
@@ -178,7 +179,11 @@ const Dashboard = () => {
                                             style={{ padding: '8px', minWidth: '40px', justifyContent: 'center' }}
                                             onClick={() => {
                                                 if (note.pdfUrl && note.pdfUrl !== '#') {
-                                                    window.open(note.pdfUrl, '_blank');
+                                                    if (note.pdfUrl.startsWith('/live-notes/')) {
+                                                        navigate(note.pdfUrl);
+                                                    } else {
+                                                        window.open(note.pdfUrl, '_blank');
+                                                    }
                                                 } else {
                                                     alert('This specialized note is currently being finalized. It will be available for download very soon!');
                                                 }

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
     Play, FileText, Layout, ArrowLeft, Clock,
@@ -10,6 +10,7 @@ import { gradesData } from '../../data/gradesData';
 
 const SectionPage = () => {
     const { id } = useParams();
+    const navigate = useNavigate();
     const [activeTab, setActiveTab] = useState('notes');
     const [previewPdf, setPreviewPdf] = useState(null);
 
@@ -166,26 +167,34 @@ const SectionPage = () => {
                                                         style={{ flex: 1, justifyContent: 'center', gap: '8px' }}
                                                         onClick={() => {
                                                             if (note.pdfUrl && note.pdfUrl !== '#') {
-                                                                setPreviewPdf(note);
+                                                                if (note.pdfUrl.startsWith('/live-notes/')) {
+                                                                    navigate(note.pdfUrl);
+                                                                } else {
+                                                                    setPreviewPdf(note);
+                                                                }
                                                             } else {
                                                                 alert('This specialized note is currently being finalized. Stay tuned!');
                                                             }
                                                         }}
                                                     >
-                                                        Preview
+                                                        {note.pdfUrl.startsWith('/live-notes/') ? 'Read Note' : 'Preview'}
                                                     </button>
                                                     <button
                                                         className="btn btn-primary"
                                                         style={{ flex: 1, justifyContent: 'center', gap: '8px' }}
                                                         onClick={() => {
                                                             if (note.pdfUrl && note.pdfUrl !== '#') {
-                                                                window.open(note.pdfUrl, '_blank');
+                                                                if (note.pdfUrl.startsWith('/live-notes/')) {
+                                                                    navigate(note.pdfUrl);
+                                                                } else {
+                                                                    window.open(note.pdfUrl, '_blank');
+                                                                }
                                                             } else {
                                                                 alert('This specialized note is currently being finalized. It will be available for download very soon!');
                                                             }
                                                         }}
                                                     >
-                                                        <Download size={18} /> PDF
+                                                        <Download size={18} /> {note.pdfUrl.startsWith('/live-notes/') ? 'Study' : 'PDF'}
                                                     </button>
                                                 </div>
                                             </div>

@@ -7,6 +7,7 @@ import Register from './pages/Register/Register';
 import Dashboard from './pages/Dashboard/Dashboard';
 import Account from './pages/Account/Account';
 import SectionPage from './pages/Section/SectionPage';
+import LiveNotes from './pages/Section/LiveNotes';
 import Programming from './pages/Programming/Programming';
 import './App.css';
 
@@ -55,6 +56,16 @@ function App() {
             <PrivateRoute>
               <Layout>
                 <Programming />
+              </Layout>
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/live-notes/:grade/:topic"
+          element={
+            <PrivateRoute>
+              <Layout>
+                <LiveNotes />
               </Layout>
             </PrivateRoute>
           }

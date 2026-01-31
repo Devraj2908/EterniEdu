@@ -4,8 +4,9 @@ export const gradesData = {
         desc: 'Comprehensive board exam preparation covering Science, Maths, and Social Studies.',
         resources: {
             notes: [
-                { id: '10n0_full', title: 'Chapter 1: Gravitation (Comprehensive)', type: 'Note', author: 'EterniEdu Team', copyright: '© EterniEdu Original', pdfUrl: '/live-notes/10th/gravitation-full' },
-                { id: '10n0_short', title: 'Chapter 1: Gravitation (Quick Revision)', type: 'Note', author: 'EterniEdu Team', copyright: '© EterniEdu Original', pdfUrl: '/live-notes/10th/gravitation-short' },
+                { id: '10n0_full', title: 'Chapter 1: Gravitation (Full Chapter)', type: 'Note', author: 'EterniEdu Team', copyright: '© EterniEdu Original', pdfUrl: '/live-notes/10th/gravitation-full' },
+                { id: '10n0_num', title: 'Chapter 1: Gravitation (Numericals)', type: 'Note', author: 'EterniEdu Team', copyright: '© EterniEdu Original', pdfUrl: '/live-notes/10th/gravitation-numericals' },
+                { id: '10n0_short', title: 'Chapter 1: Gravitation (Short Revision)', type: 'Note', author: 'EterniEdu Team', copyright: '© EterniEdu Original', pdfUrl: '/live-notes/10th/gravitation-short' },
                 { id: '10n1', title: 'Chapter 2: Chemical Reactions and Equations', type: 'Note', author: 'EterniEdu Team', copyright: '© EterniEdu Original', pdfUrl: 'https://raw.githubusercontent.com/mozilla/pdf.js/ba2edeae/web/compressed.tracemonkey-pldi-09.pdf' },
                 { id: '10n2', title: 'Chapter 3: Acids, Bases and Salts', type: 'Note', author: 'EterniEdu Team', copyright: '© EterniEdu Original', pdfUrl: '/notes/10th_Science_Ch2.pdf' },
                 { id: '10n3', title: 'Chapter 4: Life Processes - Nutrition', type: 'Note', author: 'EterniEdu Team', copyright: '© EterniEdu Original', pdfUrl: '#' },

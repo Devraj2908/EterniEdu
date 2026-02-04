@@ -209,7 +209,110 @@ const notesData = {
                     ]
                 }
             ]
+        },
+        'periodic-full': {
+            title: 'Chapter 2: Periodic Classification of Elements - Full Notes',
+            desc: 'A comprehensive study of the historical development of the periodic table, the Modern Periodic Law, and trends in element properties.',
+            lastUpdated: 'Feb 4, 2026',
+            sections: [
+                {
+                    heading: "1. Classification of Elements: Early Attempts",
+                    content: "At present, 118 elements are known to the scientific world. Early chemists tried to classify elements based on their properties to make their study easier.",
+                    points: [
+                        "Döbereiner’s Triads (1817): Arranged elements with similar properties in groups of three. The atomic mass of the middle element was approximately the mean of the other two.",
+                        "Newlands' Law of Octaves (1866): When arranged by increasing atomic mass, every eighth element had properties similar to the first (like musical notes).",
+                        "Limitations: Newlands' law was applicable only up to Calcium and failed for heavier elements."
+                    ]
+                },
+                {
+                    heading: "2. Mendeleev's Periodic Table",
+                    content: "Dmitri Mendeleev formulated the Periodic Law: 'Properties of elements are a periodic function of their atomic masses'.",
+                    points: [
+                        "Merits: He left gaps for undiscovered elements (Eka-Boron, Eka-Aluminium, Eka-Silicon) and predicted their properties accurately.",
+                        "Merits: Noble gases could be placed in a new group without disturbing the table when they were discovered.",
+                        "Demerits: No fixed position for Hydrogen. Cobalt and Nickel had the same whole number atomic mass, causing ambiguity in sequence."
+                    ]
+                },
+                {
+                    heading: "3. Modern Periodic Table",
+                    content: "Henry Moseley (1913) showed that the atomic number (Z) is a more fundamental property than atomic mass. This led to the Modern Periodic Law.",
+                    points: [
+                        "Modern Periodic Law: Properties of elements are a periodic function of their atomic numbers.",
+                        "Structure: It consists of 18 vertical columns (Groups) and 7 horizontal rows (Periods).",
+                        "Position of Elements: Based on their electronic configuration. Elements in the same group have same number of valence electrons.",
+                        "Blocks: s-block (Groups 1, 2), p-block (Groups 13-18), d-block (Groups 3-12), and f-block (bottom rows)."
+                    ]
+                },
+                {
+                    heading: "4. Periodic Trends: Atomic Size & Valency",
+                    content: "The behavior of elements changes systematically across periods and down groups.",
+                    points: [
+                        "Valency: Across a period (left to right), it increases from 1 to 4 and then decreases to 0. Down a group, valency remains constant because the number of valence electrons is same.",
+                        "Atomic Size: The distance between the nucleus and the outermost shell. Across a period, atomic size decreases due to increase in nuclear charge which pulls electrons closer. Down a group, atomic size increases because new shells are added."
+                    ]
+                },
+                {
+                    heading: "5. Metallic and Non-metallic Character",
+                    content: "The tendency to lose or gain electrons defines the nature of an element.",
+                    points: [
+                        "Metallic Character: The ability to lose electrons (Electropositivity). It decreases across a period and increases down a group.",
+                        "Non-metallic Character: The ability to gain electrons (Electronegativity). It increases across a period and decreases down a group.",
+                        "Metalloids: Elements like Boron, Silicon, and Germanium show properties of both metals and non-metals. They lie along a zig-zag line in the periodic table."
+                    ]
+                }
+            ]
+        },
+        'periodic-subjective': {
+            title: 'Chapter 2: Periodic Classification - Subjective Question Bank',
+            desc: 'Essential 2-mark to 5-mark questions for Board exams covering classification and trends.',
+            lastUpdated: 'Feb 4, 2026',
+            sections: [
+                {
+                    heading: "Section 1: 2-Mark Conceptual Questions",
+                    points: [
+                        "Q1: State Mendeleev's Periodic Law.\nAnswer: Properties of elements are a periodic function of their atomic masses.",
+                        "Q2: What are Isotopes? Why did they pose a challenge in Mendeleev's table?\nAnswer: Isotopes have same chemical properties but different atomic masses. Since Mendeleev arranged by mass, they should have had different positions, but they were the same element.",
+                        "Q3: Why does atomic size decrease across a period?\nAnswer: As we move from left to right, the atomic number increases, which means the positive charge on the nucleus increases. This pulls the electrons closer, decreasing the size.",
+                        "Q4: Name the element with the smallest atomic size.\nAnswer: Helium (He). Among period elements, Fluorine has the smallest size in period 2."
+                    ]
+                },
+                {
+                    heading: "Section 2: 3-Mark Explanatory Questions",
+                    points: [
+                        "Q1: Write the merits of Mendeleev's Periodic Table.\nAnswer: 1. Predicted properties of undiscovered elements. 2. Accommodated noble gases without changes. 3. Corrected atomic masses of some elements (e.g., Beryllium).",
+                        "Q2: Explain the structure of the Modern Periodic Table.\nAnswer: It has 18 groups and 7 periods. Elements are arranged by atomic number. It is divided into s, p, d, and f blocks based on electronic configuration.",
+                        "Q3: What is the relation between electronic configuration and position in the table?\nAnswer: The number of shells indicates the Period number. The number of valence electrons (for s and p blocks) indicates the Group number."
+                    ]
+                }
+            ]
+        },
+        'periodic-short': {
+            title: 'Chapter 2: Periodic Classification - Quick Revision',
+            desc: 'Fast track summary of laws and trends.',
+            lastUpdated: 'Feb 4, 2026',
+            sections: [
+                {
+                    heading: "Quick Recap",
+                    points: [
+                        "Dobereiner: Triads (Arithmetic Mean mass).",
+                        "Newlands: Octaves (Applicable up to Ca).",
+                        "Mendeleev: Atomic Mass based law.",
+                        "Modern: Atomic Number (Henry Moseley).",
+                        "Zig-zag line: Separates metals from non-metals. Metalloids lie on the border."
+                    ]
+                },
+                {
+                    heading: "Trend Summary (Left to Right)",
+                    points: [
+                        "Atomic Size: Decreases",
+                        "Metallic Character: Decreases",
+                        "Valency: 1 to 4 then 4 to 0",
+                        "Electronegativity: Increases"
+                    ]
+                }
+            ]
         }
+
     }
 };
 

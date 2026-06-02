@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { BookOpen, Users, Award, ArrowRight, Sparkles, Zap } from 'lucide-react';
+import AdSense from '../../components/AdSense/AdSense';
 
 const Home = () => {
     const features = [
@@ -31,6 +32,7 @@ const Home = () => {
 
     return (
         <div style={{ background: 'var(--bg-primary)', overflow: 'hidden' }}>
+            <AdSense />
 
             {/* Hero Section */}
             <section className="section" style={{ paddingTop: '10rem', position: 'relative' }}>

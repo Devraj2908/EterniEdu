@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Terminal, Code, Cpu, Globe, ArrowLeft, Star, ChevronRight } from 'lucide-react';
+import AdSense from '../../components/AdSense/AdSense';
 
 const Programming = () => {
     const courses = [
@@ -13,6 +14,7 @@ const Programming = () => {
 
     return (
         <div style={{ minHeight: '100vh', background: 'var(--bg-primary)', paddingTop: '120px', paddingBottom: '5rem' }}>
+            <AdSense />
             <div className="container">
                 <Link to="/dashboard" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', color: 'var(--text-secondary)', marginBottom: '2rem', fontSize: '0.9rem' }}>
                     <ArrowLeft size={16} /> Back to Dashboard

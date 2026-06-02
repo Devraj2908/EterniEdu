@@ -1,6 +1,7 @@
 import React from 'react';
 import { Mail, Phone, MapPin, BookOpen, LucideLinkedin, LucideTwitter, LucideYoutube } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import AdSense from '../AdSense/AdSense';
 
 const Footer = () => {
     return (
@@ -11,6 +12,7 @@ const Footer = () => {
             borderTop: '1px solid var(--glass-border)',
             position: 'relative'
         }}>
+            <AdSense />
             <div className="container">
                 <div style={{
                     display: 'grid',

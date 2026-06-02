@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate, Link } from 'react-router-dom';
 import { User, Mail, Lock, GraduationCap, ArrowRight, Sparkles } from 'lucide-react';
+import AdSense from '../../components/AdSense/AdSense';
 import { useAuth } from '../../context/AuthContext';
 
 const Register = () => {
@@ -63,6 +64,7 @@ const Register = () => {
             <div style={{ position: 'absolute', top: '5%', right: '5%', width: '400px', height: '400px', background: 'var(--accent-gold-glow)', filter: 'blur(120px)', zIndex: 0 }} />
             <div style={{ position: 'absolute', bottom: '5%', left: '5%', width: '300px', height: '300px', background: 'var(--accent-gold-glow)', filter: 'blur(100px)', zIndex: 0, opacity: 0.3 }} />
 
+            <AdSense />
             <div className="container" style={{ position: 'relative', zIndex: 1, display: 'flex', gap: '5rem', alignItems: 'center', justifyContent: 'center', flexWrap: 'wrap' }}>
 
                 {/* Visual Benefits - Hidden on small mobile */}

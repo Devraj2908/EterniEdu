@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, BookOpen, User, LogOut, LayoutDashboard } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import AdSense from '../AdSense/AdSense';
 import { useAuth } from '../../context/AuthContext';
 
 const Header = () => {
@@ -46,6 +47,7 @@ const Header = () => {
             transition: 'var(--transition)',
             borderBottom: scrolled ? '1px solid var(--glass-border)' : '1px solid transparent'
         }}>
+            <AdSense />
             <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <Link to={currentUser ? "/dashboard" : "/"} style={{ display: 'flex', alignItems: 'center', gap: '12px', fontSize: '1.6rem', fontWeight: '800' }}>
                     <div className="animate-float" style={{ color: 'var(--accent-gold)' }}>

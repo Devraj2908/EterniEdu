@@ -7,6 +7,7 @@ import {
     CheckCircle2, Info, HelpCircle, Book as BookIcon
 } from 'lucide-react';
 import { gradesData } from '../../data/gradesData';
+import AdSense from '../../components/AdSense/AdSense';
 
 const SectionPage = () => {
     const { id } = useParams();
@@ -47,6 +48,7 @@ const SectionPage = () => {
 
     return (
         <div style={{ minHeight: '100vh', background: 'var(--bg-primary)', paddingTop: '120px', paddingBottom: '5rem' }}>
+            <AdSense />
             <div className="container">
                 <Link to="/dashboard" style={{
                     display: 'inline-flex',

@@ -2,6 +2,7 @@ import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, BookOpen, Download, Share2, CheckCircle2, Clock, Star } from 'lucide-react';
+import AdSense from '../../components/AdSense/AdSense';
 
 const notesData = {
     '10th': {
@@ -332,6 +333,7 @@ const LiveNotes = () => {
 
     return (
         <div style={{ minHeight: '100vh', background: 'var(--bg-primary)', paddingTop: '120px', paddingBottom: '5rem' }}>
+            <AdSense />
             <div className="container" style={{ maxWidth: '900px' }}>
                 <Link to={`/section/${grade}`} style={{
                     display: 'inline-flex',

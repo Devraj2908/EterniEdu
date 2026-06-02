@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Link, useNavigate } from 'react-router-dom';
 import { Book, Code, Award, Zap, ArrowRight, Clock, Star, Play, FileText, Download } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
+import AdSense from '../../components/AdSense/AdSense';
 import { gradesData } from '../../data/gradesData';
 
 const Dashboard = () => {
@@ -23,6 +24,7 @@ const Dashboard = () => {
 
     return (
         <div style={{ minHeight: '100vh', background: 'var(--bg-primary)', paddingTop: '100px', paddingBottom: '4rem' }}>
+            <AdSense />
             <div className="container">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}

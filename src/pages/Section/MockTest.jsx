@@ -6,6 +6,7 @@ import {
     RefreshCcw, Home, CheckCircle2, XCircle,
     HelpCircle, Timer, BarChart3, ShieldCheck
 } from 'lucide-react';
+import AdSense from '../../components/AdSense/AdSense';
 
 const questionsData = {
     '10th': {
@@ -91,6 +92,7 @@ const MockTest = () => {
 
     return (
         <div style={{ minHeight: '100vh', background: 'var(--bg-primary)', paddingTop: '100px', paddingBottom: '5rem' }}>
+            <AdSense />
             <div className="container" style={{ maxWidth: '800px' }}>
                 <AnimatePresence mode="wait">
                     {step === 'start' && (

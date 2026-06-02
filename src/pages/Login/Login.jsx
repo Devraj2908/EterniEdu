@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { Mail, Lock, ArrowLeft, ArrowRight, ShieldCheck } from 'lucide-react';
+import AdSense from '../../components/AdSense/AdSense';
 import { useAuth } from '../../context/AuthContext';
 
 const Login = () => {
@@ -52,6 +53,7 @@ const Login = () => {
             <div style={{ position: 'absolute', top: '10%', left: '10%', width: '300px', height: '300px', background: 'var(--accent-gold-glow)', filter: 'blur(100px)', zIndex: 0 }} />
             <div style={{ position: 'absolute', bottom: '10%', right: '10%', width: '200px', height: '200px', background: 'var(--accent-gold-glow)', filter: 'blur(80px)', zIndex: 0, opacity: 0.5 }} />
 
+            <AdSense />
             <div className="container" style={{ position: 'relative', zIndex: 1, display: 'flex', justifyContent: 'center' }}>
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import AdSense from '../AdSense/AdSense';
 
 const PrivateRoute = ({ children }) => {
     const { currentUser, userGrade, loading } = useAuth();
@@ -29,7 +30,12 @@ const PrivateRoute = ({ children }) => {
     }
 
 
-    return children;
+    return (
+        <>
+            <AdSense />
+            {children}
+        </>
+    );
 };
 
 export default PrivateRoute;
